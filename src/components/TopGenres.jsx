@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const TopGenres = () => {
   const [books, setBooks] = useState([]);
@@ -9,10 +10,8 @@ const TopGenres = () => {
     const fetchTopRatedBooks = async () => {
       try {
         const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const res = await fetch(`${API_URL}/books/top-rated`);
-        if (!res.ok) throw new Error("Failed to fetch top rated books");
-        const data = await res.json();
-        setBooks(data);
+        const response = await axios.get(`${API_URL}/books/top-rated`);
+        setBooks(response.data);
         setLoading(false);
       } catch (err) {
         setError(err.message);
