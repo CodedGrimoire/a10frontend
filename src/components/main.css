@@ -1,3 +1,11 @@
+body, html {
+ 
+  margin: 0; /* Remove any global margins */
+
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
 .hero-banner {
   display: flex;
   justify-content: center;
@@ -11,6 +19,7 @@
   background-position: center;
   background-image: url("https://francetoday.com/wp-content/uploads/2022/03/alfons-morales-YLSwjSy7stw-unsplash-min-670x392.jpg"); /* Add your image URL here */
 }
+
 
 .banner-content {
   text-align: center;
@@ -68,4 +77,200 @@ button:hover {
 
 .btn-create-book:hover {
   background-color: #92400e; /* Darker on hover */
+}
+
+/* Container for the entire top genres section */
+.top-genres-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 16px;
+ 
+  
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #92400e;
+ 
+}
+.textual{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 500px;
+}
+.subtitle {
+  color: black;
+  
+  
+}
+
+.view-all-button {
+  padding: 10px 24px;
+  background-color: #92400e;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  
+  font-weight: 500;
+ 
+}
+
+
+
+/* Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  background-color: antiquewhite;
+  padding: 100px;
+ 
+   
+  
+  
+}
+.top-genres-container{
+     background-color: antiquewhite;
+      
+      width: 100%;
+    
+      
+    
+ 
+ 
+
+   
+
+}
+.no-books-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #666;
+}
+
+/* Book Card */
+.book-card {
+  background-color: white;
+  border-radius: 12px;
+  margin: 0px;
+
+  
+}
+
+
+/* Book Image */
+.book-image-container {
+  height: 300px;
+  overflow: hidden;
+  background-color: #e5e7eb;
+}
+
+.book-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Book Info */
+.book-info {
+  padding: 20px;
+}
+
+.book-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.author {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.genre {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: #fef3c7;
+  color: #92400e;
+  font-size: 14px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.star {
+  color: #fbbf24;
+  margin-right: 4px;
+}
+
+.rating-value {
+  font-weight: 500;
+}
+
+.review-count {
+  color: #666;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.description {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.view-details-button {
+  width: 100%;
+  padding: 10px 16px;
+  background-color: #813b10;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  
+  font-weight: 500;
+ 
+}
+
+
+/* Loading and Error Containers */
+.loading-container, .error-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.loading-text {
+  font-size: 18px;
+}
+
+.error-text {
+  color: #ef4444;
 }
