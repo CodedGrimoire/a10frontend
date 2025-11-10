@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HBan from "./herobanner";
 import Topss from "./TopGenres";
 import Aboo from "./About";
-import "./Allbooks.css"; 
+import "./AllBooks.css"; 
 import './main.css'; 
 import axios from "axios";
 
