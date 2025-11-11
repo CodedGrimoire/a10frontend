@@ -274,3 +274,15 @@ button:hover {
 .error-text {
   color: #ef4444;
 }
+
+
+.book-tooltip {
+  background-color: #813b10 !important;
+  color: #fff !important;
+  font-size: 0.85rem !important;
+  max-width: 250px !important;
+  white-space: normal !important;
+  line-height: 1.4;
+  border-radius: 6px;
+  padding: 8px 10px !important;
+}
