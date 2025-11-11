@@ -100,22 +100,20 @@ const MyBooks = () => {
       return;
     }
 
-    // Only send the editable fields, not the entire book object
     const payload = {
       title: formData.title,
       author: formData.author,
       genre: formData.genre,
-      rating: formData.rating ? Number(formData.rating) : 0,
+      rating: formData.rating ? parseFloat(formData.rating) : 0, // ✅ decimal
       summary: formData.summary || "",
       coverImage: formData.coverImage || "",
-      // Keep the user info from the original book
       userEmail: editingBook.userEmail,
       userName: editingBook.userName,
     };
 
     try {
       setUpdating(true);
-      console.log("Sending update payload:", payload); // Debug log
+      console.log("Sending update payload:", payload);
       await axios.put(`${BASE_URL}/update-book/${editingBook._id}`, payload, {
         headers: { "Content-Type": "application/json" },
       });
@@ -280,6 +278,7 @@ const MyBooks = () => {
                   className="form-input"
                   min="1"
                   max="5"
+                  step="0.1" // ✅ allow decimals
                 />
               </div>
 

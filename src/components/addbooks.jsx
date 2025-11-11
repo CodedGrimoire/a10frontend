@@ -38,7 +38,7 @@ const AddBooks = () => {
 
     const payload = {
       ...book,
-      rating: book.rating ? Number(book.rating) : 0,
+      rating: book.rating ? parseFloat(book.rating) : 0, // ✅ allows decimals
       userEmail: user.email,
       userName: user.displayName || user.email,
     };
@@ -121,7 +121,7 @@ const AddBooks = () => {
 
           {/* Rating */}
           <div className="form-group">
-            <label className="form-label">Rating (1–5)</label>
+            <label className="form-label">Rating (1–5, decimal allowed)</label>
             <input
               type="number"
               name="rating"
@@ -130,6 +130,7 @@ const AddBooks = () => {
               className="form-input"
               min="1"
               max="5"
+              step="0.1" // ✅ allows decimals
             />
           </div>
 
