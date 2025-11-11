@@ -1,7 +1,7 @@
 // Login.js
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebaseConfig'; // Assuming firebaseConfig.js contains your Firebase initialization
+import { auth } from '../../firebaseConfig'; // Assuming firebaseConfig.js contains your Firebase initialization
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });

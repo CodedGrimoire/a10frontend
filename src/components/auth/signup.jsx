@@ -1,7 +1,7 @@
 // Register.js
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebaseConfig'; // Import Firebase config
+import { auth } from "../../firebaseConfig";
 
 const Register = () => {
   const [formData, setFormData] = useState({
