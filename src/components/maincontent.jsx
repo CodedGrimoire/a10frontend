@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HBan from "./herobanner";
 import Topss from "./TopGenres";
+
+import Bweek from "./bookOfWeek"
 import Aboo from "./About";
 import "./AllBooks.css";
 import "./main.css";
@@ -83,6 +85,7 @@ const Maincontent = () => {
       </div>
 
       <Topss />
+      <Bweek/>
       <Aboo />
     </div>
   );
