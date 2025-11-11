@@ -42,9 +42,10 @@ const AllBooks = () => {
             <p><strong>Author:</strong> {book.author}</p>
             <p><strong>Genre:</strong> {book.genre}</p>
             <p><strong>Rating:</strong> {book.rating} / 5</p>
-            <button onClick={() => window.location.href = `/book-details/${book._id}`}>
-              View Details
-            </button>
+           <button onClick={() => window.location.href = `/book-details/${book._id}`}>
+  View Details
+</button>
+
           </div>
         ))}
       </div>
