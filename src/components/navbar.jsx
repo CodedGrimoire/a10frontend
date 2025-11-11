@@ -1,11 +1,14 @@
 // src/components/Navbar.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import "./Navbar.css";
 
 const Navbar = () => {
   const { user, loading, logout } = useAuth();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="navbar">
@@ -17,10 +20,18 @@ const Navbar = () => {
 
       <div className="navbar-content">
         <ul className="navbar-menu">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/all">All Books</Link></li>
-          <li><Link to="/add">Add Book</Link></li>
-          <li><Link to="/my">My Books</Link></li>
+          <li>
+            <Link to="/" className={isActive("/") ? "active-link" : ""}>Home</Link>
+          </li>
+          <li>
+            <Link to="/all" className={isActive("/all") ? "active-link" : ""}>All Books</Link>
+          </li>
+          <li>
+            <Link to="/add" className={isActive("/add") ? "active-link" : ""}>Add Book</Link>
+          </li>
+          <li>
+            <Link to="/my" className={isActive("/my") ? "active-link" : ""}>My Books</Link>
+          </li>
         </ul>
 
         {loading ? (

@@ -173,3 +173,21 @@
     display: none;
   }
 }
+
+.navbar-menu a {
+  text-decoration: none;
+  color: #3b1d0e;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.navbar-menu a:hover {
+  background-color: rgba(129, 59, 16, 0.1);
+}
+
+.active-link {
+  background-color: #813b10;
+  color: white !important;
+  box-shadow: 0 0 8px rgba(129, 59, 16, 0.6);
+}
