@@ -27,12 +27,13 @@ const TopGenres = () => {
     fetchTopRatedBooks();
   }, []);
 
-  if (loading)
-    return (
-      <div className="loading-container">
-        <span className="loading-text">Loading...</span>
-      </div>
-    );
+ if (loading)
+  return (
+    <div className="flex justify-center items-center h-64">
+      <span className="loading loading-spinner loading-lg text-[#813b10]"></span>
+    </div>
+  );
+
 
   if (error)
     return (
