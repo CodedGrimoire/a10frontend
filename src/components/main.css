@@ -286,3 +286,7 @@ button:hover {
   border-radius: 6px;
   padding: 8px 10px !important;
 }
+
+.react-tooltip {
+  z-index: 9999;
+}
