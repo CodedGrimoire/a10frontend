@@ -2,20 +2,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { user, loading, logout } = useAuth();
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4 md:px-8">
-      <div className="flex-1">
-        <Link to="/" className="text-2xl font-bold text-primary">
+    <nav className="navbar">
+      <div className="navbar-brand">
+        <Link to="/" className="navbar-logo">
           📚 The Book Haven
         </Link>
       </div>
 
-      <div className="flex-none flex items-center gap-4">
-        <ul className="menu menu-horizontal px-1 hidden md:flex">
+      <div className="navbar-content">
+        <ul className="navbar-menu">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/all">All Books</Link></li>
           <li><Link to="/add">Add Book</Link></li>
@@ -23,10 +24,10 @@ const Navbar = () => {
         </ul>
 
         {loading ? (
-          <span className="text-sm text-gray-500">...</span>
+          <span className="loading-text">...</span>
         ) : user ? (
-          <div className="flex items-center gap-3">
-            <div className="relative group">
+          <div className="user-section">
+            <div className="user-avatar-container">
               <img
                 src={
                   user.photoURL ||
@@ -35,28 +36,28 @@ const Navbar = () => {
                   )}`
                 }
                 alt="user"
-                className="w-9 h-9 rounded-full border cursor-pointer"
+                className="user-avatar"
               />
-              <div className="absolute right-0 mt-2 bg-white shadow-md rounded-md px-3 py-2 text-sm hidden group-hover:block z-20">
+              <div className="user-tooltip">
                 {user.displayName || user.email}
               </div>
             </div>
-            <button onClick={logout} className="btn btn-outline btn-sm">
+            <button onClick={logout} className="btn-logout">
               Log out
             </button>
           </div>
         ) : (
-          <div className="ml-2 flex gap-2">
-            <Link to="/login" className="btn btn-outline btn-sm">
+          <div className="auth-buttons">
+            <Link to="/login" className="btn-login">
               Login
             </Link>
-            <Link to="/register" className="btn btn-primary btn-sm">
+            <Link to="/register" className="btn-register">
               Register
             </Link>
           </div>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 
