@@ -140,11 +140,7 @@ const BookDetails = () => {
 
   return (
     <div className="book-details-container">
-      <div className="back-button-wrapper">
-        <Link to="/all" className="btn-back">
-          ← Back to All Books
-        </Link>
-      </div>
+     
 
       <div className="book-details-card">
         <div className="book-image-section">
