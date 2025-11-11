@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 
-import Navbar from "./components/Navbar";           // make sure file is capitalized
+import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 
 import MH from "./components/maincontent";
@@ -11,7 +11,7 @@ import MY from "./components/mybooks";
 import ADD from "./components/addbooks";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
-import BookDetails from "./components/bookdetail"; // <-- your details page
+import BookDetails from "./components/bookdetail";
 
 import { useAuth } from "./hooks/useAuth";
 
@@ -29,10 +29,11 @@ export default function App() {
         <Navbar />
         <main className="flex-1">
           <Routes>
+            {/* public */}
             <Route path="/" element={<MH />} />
             <Route path="/all" element={<AllBooks />} />
 
-            {/* private pages */}
+            {/* private */}
             <Route
               path="/my"
               element={
@@ -49,9 +50,14 @@ export default function App() {
                 </PrivateRoute>
               }
             />
-
-            {/* details page (usually public) */}
-            <Route path="/book-details/:id" element={<BookDetails />} />
+            <Route
+              path="/book-details/:id"
+              element={
+                <PrivateRoute>
+                  <BookDetails />
+                </PrivateRoute>
+              }
+            />
 
             {/* auth */}
             <Route path="/login" element={<Login />} />
