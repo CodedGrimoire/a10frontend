@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './main.css';  // Import the external CSS file
+import { useNavigate } from "react-router-dom";
+import "./main.css";
 
 const TopGenres = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopRatedBooks = async () => {
       try {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
         const response = await axios.get(`${API_URL}/books/top-rated`);
         setBooks(response.data);
-        setLoading(false);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -56,7 +58,12 @@ const TopGenres = () => {
             <div key={book._id || idx} className="book-card">
               <div className="book-image-container">
                 <img
-                  src={book.img || book.coverImage || book.image || "https://via.placeholder.com/300x400?text=Book+Cover"}
+                  src={
+                    book.coverImage ||
+                    book.img ||
+                    book.image ||
+                    "https://via.placeholder.com/300x400?text=Book+Cover"
+                  }
                   alt={book.title}
                   className="book-image"
                   onError={(e) => {
@@ -71,20 +78,21 @@ const TopGenres = () => {
                 {book.rating && (
                   <div className="rating">
                     <span className="star">★</span>
-                    <span className="rating-value">{book.rating.toFixed(1)}</span>
+                    <span className="rating-value">
+                      {book.rating.toFixed ? book.rating.toFixed(1) : book.rating}
+                    </span>
                     {book.reviewCount && (
                       <span className="review-count">({book.reviewCount} reviews)</span>
                     )}
                   </div>
                 )}
-                {book.description && <p className="description">{book.description}</p>}
-               <button 
-  className="view-details-button" 
-  style={{ backgroundColor: '#813b10', color: 'white' }}
->
-  View Details
-</button>
-
+                <button
+                  className="view-details-button"
+                  style={{ backgroundColor: "#813b10", color: "white" }}
+                  onClick={() => navigate(`/book-details/${book._id}`)}
+                >
+                  View Details
+                </button>
               </div>
             </div>
           ))
