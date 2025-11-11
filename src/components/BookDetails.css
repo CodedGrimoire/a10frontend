@@ -1,9 +1,12 @@
 /* BookDetails.css */
+body{
+  height: 100%;
+}
 .book-details-container {
-  max-width: 1200px;
+  
   margin: 0 auto;
   padding: 48px 16px;
-  background-color: #fef3c7;
+  background-color: #fcf6dd;
   min-height: 100vh;
 }
 

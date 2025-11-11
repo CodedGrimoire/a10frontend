@@ -6,7 +6,7 @@ const Footer = () => {
       backgroundColor: '#fef3c7',
       color: '#1f2937',
       padding: '24px 0',
-      marginTop: '48px',
+      
       borderTop: '2px solid #fde68a',
     },
     container: {
