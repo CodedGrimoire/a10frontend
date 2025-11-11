@@ -80,3 +80,31 @@
     grid-template-columns: 1fr;
   }
 }
+
+.sort-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sort-buttons button {
+  background-color: #813b10;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.sort-buttons button:hover {
+  background-color: #a15b2a;
+  transform: translateY(-1px);
+}
+
+.sort-buttons button:active {
+  background-color: #69310b;
+  transform: translateY(0);
+}
