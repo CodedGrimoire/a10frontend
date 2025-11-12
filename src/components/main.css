@@ -73,7 +73,7 @@ button:hover {
 }
 
 /* Container for the entire top genres section */
-.top-genres-container {
+.top-genres {
   width: 100%;
   margin: 0 auto;
   padding: 32px 16px;
@@ -134,7 +134,7 @@ button:hover {
   
   
 }
-.top-genres-container{
+.top-genres{
      background-color: antiquewhite;
       
       width: 100%;
@@ -154,7 +154,7 @@ button:hover {
 }
 
 /* Book Card */
-.book-card {
+.bookies {
   background-color: white;
   border-radius: 12px;
   margin: 0px;
@@ -164,7 +164,7 @@ button:hover {
 
 
 /* Book Image */
-.book-image-container {
+.bookies-image {
   height: 300px;
   overflow: hidden;
   background-color: #e5e7eb;
