@@ -16,7 +16,7 @@
 
 .banner-content {
   text-align: center;
-  color: #dfdcda; /* Warm brown text instead of white */
+  color: #dfdcda; 
 }
 
 h1 {
@@ -101,7 +101,7 @@ button:hover {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding-left: 500px;
+    
 }
 .subtitle {
   color: black;
@@ -109,7 +109,7 @@ button:hover {
   
 }
 
-.view-all-button {
+.gotoallbtn {
   padding: 10px 24px;
   background-color: #92400e;
   color: white;
@@ -122,7 +122,7 @@ button:hover {
 
 
 
-/* Grid Layout */
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -282,4 +282,19 @@ button:hover {
 
 .react-tooltip {
   z-index: 9999;
+}
+
+
+
+
+@media (max-width: 576px) {
+  .grid-container{
+     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .aboutergrid{
+
+     grid-template-columns: 1fr;
+
+  }
 }

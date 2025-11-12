@@ -1,16 +1,33 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import toast, { Toaster } from "react-hot-toast";
-import { useAuth } from "../hooks/useAuth";
+
+import axios from "axios";
+
+
 import "./MyBooks.css";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { useAuth } from "../hooks/useAuth";
+
+
+const BASE_URL = import.meta.env.VITE_API_URL ;
 
 const MyBooks = () => {
   const { user, loading } = useAuth();
+
+   const [fetching, setFetching] = useState(false);
   const [books, setBooks] = useState([]);
-  const [fetching, setFetching] = useState(false);
-  const [editingBook, setEditingBook] = useState(null);
+
+
+   const [edix, setEditingBook] = useState(null);
+
+
+ 
+ 
+
+
+
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -21,7 +38,9 @@ const MyBooks = () => {
   });
   const [updating, setUpdating] = useState(false);
 
-  // fetch user's books
+
+
+  
   const fetchMyBooks = async (email) => {
     try {
       setFetching(true);
@@ -29,10 +48,21 @@ const MyBooks = () => {
         `${BASE_URL}/myBooks?email=${encodeURIComponent(email)}`
       );
       setBooks(res.data || []);
-    } catch (err) {
-      console.error(err);
+    }
+    
+    
+    catch (err) 
+    
+    
+    {
+     // console.error(err);
+
+
       toast.error("Failed to load your books");
-    } finally {
+    } 
+    
+    finally 
+    {
       setFetching(false);
     }
   };
@@ -43,34 +73,28 @@ const MyBooks = () => {
     }
   }, [loading, user]);
 
-  // delete
+
   const handleDelete = async (id) => {
     const sure = window.confirm("Delete this book?");
     if (!sure) return;
-    try {
+    try 
+    
+    {
       await axios.delete(`${BASE_URL}/delete-book/${id}`);
       toast.success("Book deleted successfully!");
+
+
       setBooks((prev) => prev.filter((b) => b._id !== id));
-    } catch (err) {
-      console.error(err);
+    }
+    
+    catch (err) {
+      //console.error(err);
       toast.error("Failed to delete");
     }
   };
 
-  // open update modal
-  const openUpdateModal = (book) => {
-    setEditingBook(book);
-    setFormData({
-      title: book.title || "",
-      author: book.author || "",
-      genre: book.genre || "",
-      rating: book.rating || "",
-      summary: book.summary || "",
-      coverImage: book.coverImage || "",
-    });
-  };
 
-  // close modal
+
   const closeModal = () => {
     setEditingBook(null);
     setFormData({
@@ -83,7 +107,27 @@ const MyBooks = () => {
     });
   };
 
-  // handle form change
+
+  
+  const openUpdateModal = (book) => 
+    
+    {
+    setEditingBook(book);
+
+
+    setFormData({
+      title: book.title || "",
+      author: book.author || "",
+      genre: book.genre || "",
+      rating: book.rating || "",
+      summary: book.summary || "",
+      coverImage: book.coverImage || "",
+    });
+
+  };
+
+ 
+//brrrrr
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -91,11 +135,13 @@ const MyBooks = () => {
     });
   };
 
-  // submit update
+  
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.author || !formData.genre) {
+    if (!formData.title || !formData.author || !formData.genre) 
+      
+      {
       toast.error("Title, Author, and Genre are required.");
       return;
     }
@@ -104,39 +150,71 @@ const MyBooks = () => {
       title: formData.title,
       author: formData.author,
       genre: formData.genre,
-      rating: formData.rating ? parseFloat(formData.rating) : 0, // ✅ decimal
+      rating: formData.rating ? parseFloat(formData.rating) : 0, 
+
+
       summary: formData.summary || "",
+
+
       coverImage: formData.coverImage || "",
-      userEmail: editingBook.userEmail,
-      userName: editingBook.userName,
+      userEmail: edix.userEmail,
+
+
+      userName: edix.userName,
     };
 
     try {
       setUpdating(true);
-      console.log("Sending update payload:", payload);
-      await axios.put(`${BASE_URL}/update-book/${editingBook._id}`, payload, {
+     // console.log("Sending update payload:", payload);
+
+
+      await axios.put(`${BASE_URL}/update-book/${edix._id}`, payload, 
+        
+        
+        {
         headers: { "Content-Type": "application/json" },
       });
+
+
+
       toast.success("Book updated successfully!");
+
+
+
       setBooks((prev) =>
-        prev.map((b) => (b._id === editingBook._id ? { ...b, ...payload } : b))
+        prev.map((b) => (b._id === edix._id ? { ...b, ...payload } : b))
       );
       closeModal();
-    } catch (err) {
-      console.error("Update error:", err.response?.data || err);
+    }
+    
+    catch (err) 
+    
+    {
+      //console.error("Update error:", err.response?.data || err);
       toast.error(err.response?.data?.message || "Failed to update book");
-    } finally {
+    } 
+    
+    finally 
+    
+    {
       setUpdating(false);
     }
   };
 
   if (loading) {
     return (
-      <div className="my-books-container">
+      <div className="mines">
         <Toaster />
+
         <div className="loading-state">
-          <div className="loading-spinner"></div>
-          <p>Loading user…</p>
+
+
+          <div className="loading-spinner">
+
+
+
+          </div>
+          
         </div>
       </div>
     );
@@ -144,30 +222,56 @@ const MyBooks = () => {
 
   if (!user?.email) {
     return (
-      <div className="my-books-container">
+      <div className="mines">
         <Toaster />
+
+
         <div className="empty-state">
-          <p>You must be logged in to see your books.</p>
-        </div>
-      </div>
+          <p>
+            
+            You must be logged in to see your books.
+            
+            
+            </p>
+        </div> </div>
+     
     );
   }
 
   return (
-    <div className="my-books-container">
+    <div className="mines">
       <Toaster />
-      <h2 className="my-books-title">My Books</h2>
+      <h2 className="my-books-title">
+        
+        My Books
+        
+        
+        </h2>
 
       {fetching ? (
         <div className="loading-state">
           <div className="loading-spinner"></div>
-          <p>Loading your books…</p>
+          <p>
+            
+            
+            Loading your books…
+            
+            
+            </p>
         </div>
-      ) : books.length === 0 ? (
+      ) :
+       books.length === 0 ? (
         <div className="empty-state">
-          <p>You haven't added any books yet.</p>
+          <p>
+            
+            You haven't added any books yet.
+            
+            </p>
         </div>
-      ) : (
+      ) : 
+      
+      
+      (
         <div className="table-wrapper">
           <table className="books-table">
             <thead>
@@ -185,13 +289,21 @@ const MyBooks = () => {
                   <td>
                     <img
                       src={book.coverImage}
-                      alt={book.title}
-                      className="book-cover-thumb"
+                      alt=""
+                      className="tmb"
                     />
                   </td>
                   <td>
-                    <div className="book-title-cell">{book.title}</div>
+                    <div className="book-title-cell">
+                      
+                      
+                      {book.title}
+                      
+                      
+                      </div>
                     <div className="book-author-cell">
+
+
                       {book.author || "Unknown"}
                     </div>
                   </td>
@@ -205,13 +317,15 @@ const MyBooks = () => {
                       >
                         Update
                       </button>
+
+
                       <button
                         onClick={() => handleDelete(book._id)}
                         className="btn-delete"
                       >
                         Delete
-                      </button>
-                    </div>
+                      </button> </div>
+                   
                   </td>
                 </tr>
               ))}
@@ -220,21 +334,39 @@ const MyBooks = () => {
         </div>
       )}
 
-      {/* Update Modal */}
-      {editingBook && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3 className="modal-title">Update Book</h3>
+    
+      {edix && (
+        <div className="modal-overlay"
+        
+        onClick={closeModal}>
+          <div className="modal-content"
+          
+          onClick={(e) => e.stopPropagation()}>
+            <div className="mhdr">
+
+
+              <h3 className="modal-title">
+                
+                Update Book
+                
+                
+                </h3>
               <button className="modal-close" onClick={closeModal}>
                 ✕
-              </button>
-            </div>
+              </button>  </div>
+          
 
             <div className="modal-body">
               <div className="form-group">
-                <label className="form-label">Title *</label>
+                <label className="form-label">
+                  
+                  
+                  Title *</label>
+
+
                 <input
+
+
                   type="text"
                   name="title"
                   value={formData.title}
@@ -245,7 +377,15 @@ const MyBooks = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Author *</label>
+                <label className="form-label">
+                  
+                  
+                  Author *
+                  
+                  
+                  </label>
+
+
                 <input
                   type="text"
                   name="author"
@@ -278,7 +418,7 @@ const MyBooks = () => {
                   className="form-input"
                   min="1"
                   max="5"
-                  step="0.1" // ✅ allow decimals
+                  step="0.1" 
                 />
               </div>
 
@@ -318,10 +458,15 @@ const MyBooks = () => {
                   disabled={updating}
                   className="btn-submit"
                 >
-                  {updating ? "Updating..." : "Update Book"}
+                  {updating ?
+                  
+                  "Updating..." : "Update Book"}
                 </button>
-              </div>
-            </div>
+
+
+
+              </div> </div>
+           
           </div>
         </div>
       )}

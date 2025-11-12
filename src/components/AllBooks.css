@@ -1,48 +1,48 @@
-.all-books-container {
+.aallbc {
+
+    text-align: center;
   margin: 0 auto;
+
+   background-color: #fef3c7;
   padding: 40px 20px;
-  text-align: center;
-  background-color: #fef3c7;
+
+ 
 }
 
-.all-books-container h2 {
-  font-size: 2em;
-  margin-bottom: 30px;
-  color: #92400e;
-  font-weight: bold;
-}
 
-.books-grid {
+.bcard {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  max-width: 1200px;
+ 
+  gap: 22px;
+
+   grid-template-columns: repeat(3, 1fr);
+ 
   margin: 0 auto;
 }
 
 .book-card {
   background: #fffbeb;
-  border: 2px solid #fde68a;
-  border-radius: 8px;
-  overflow: hidden;
-  padding: 16px;
+ 
+  
   text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(146, 64, 14, 0.1);
+
+
+   overflow: hidden;
 }
 
-.book-card:hover {
-  box-shadow: 0 6px 12px rgba(146, 64, 14, 0.2);
-  transform: translateY(-4px);
-  border-color: #fbbf24;
-}
+
 
 .book-card img {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
-  margin-bottom: 12px;
+
+
+   margin-bottom: 12px;
+
+    object-fit: cover;
   border-radius: 6px;
+  height: 300px;
+ 
+ 
 }
 
 .book-card h3 {
@@ -51,60 +51,90 @@
   color: #78350f;
 }
 
-.book-card p {
-  color: #92400e;
-  margin: 6px 0;
-  font-size: 0.95em;
-}
 
 .book-card button {
   margin-top: 12px;
-  padding: 10px 20px;
+
+
+  font-weight: 500;
+
   border: none;
-  background-color: #d97706;
+  padding: 10px 20px;
+
   color: white;
   border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+ 
+  
+  background-color: #d97706;
+  
+  
+ 
 }
 
-.book-card button:hover {
-  background-color: #b45309;
-}
 
 
 
 @media (max-width: 576px) {
-  .books-grid {
+  .bcard {
     grid-template-columns: 1fr;
   }
 }
 
-.sort-buttons {
+.sorrty {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-bottom: 16px;
 }
 
-.sort-buttons button {
+.sorrty button {
   background-color: #813b10;
-  color: white;
-  border: none;
-  border-radius: 6px;
+
+
+   border: none;
+ 
   padding: 10px 16px;
+
+
+   border-radius: 7px;
+  color: white;
+ 
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+ 
 }
 
-.sort-buttons button:hover {
-  background-color: #a15b2a;
-  transform: translateY(-1px);
-}
 
-.sort-buttons button:active {
+
+.sorrty button:active {
   background-color: #69310b;
   transform: translateY(0);
+}
+
+
+
+.aallbc h2 {
+  font-size: 2em;
+
+   color: #92400e;
+  margin-bottom: 30px;
+ 
+  font-weight: bold;
+}
+
+
+.book-card p {
+  color: #92400e;
+
+   font-size: 0.95em;
+  margin: 6px 0;
+ 
+}
+
+.book-card{
+
+  border-radius: 9px;
+ 
+  padding: 16px;
+
+   border:  solid 2px #fde68a;
 }
