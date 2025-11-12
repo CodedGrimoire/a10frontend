@@ -9,6 +9,8 @@ import MH from "./components/maincontent";
 import AllBooks from "./components/Allbooks";
 import MY from "./components/mybooks";
 import ADD from "./components/addbooks";
+
+import Error from "./components/Error"
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
 import BookDetails from "./components/bookdetail";
@@ -33,7 +35,7 @@ export default function App() {
             <Route path="/" element={<MH />} />
             <Route path="/all" element={<AllBooks />} />
 
-            {/* private */}
+            
             <Route
               path="/my"
               element={
@@ -58,6 +60,7 @@ export default function App() {
                 </PrivateRoute>
               }
             />
+             <Route path="*" element={<Error />} />
 
             {/* auth */}
             <Route path="/login" element={<Login />} />

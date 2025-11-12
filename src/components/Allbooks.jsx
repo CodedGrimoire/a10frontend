@@ -37,7 +37,7 @@ const AllBooks = () => {
   if (loading) {
     return (
       <div className="loading-container">
-        <span className="loading-spinner">Loading...</span>
+        <span className="loading-spinner"></span>
       </div>
     );
   }
