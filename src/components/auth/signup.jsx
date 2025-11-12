@@ -6,285 +6,149 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
+import toast, { Toaster } from 'react-hot-toast';
+import { Eye, EyeOff } from 'lucide-react';
+import './auth.css'; // imported CSS file
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
-  const [toast, setToast] = useState({ show: false, message: '', type: '' });
+  const [showPassword, setShowPassword] = useState(false);
 
   const provider = new GoogleAuthProvider();
 
-  // handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
   };
 
-  // show toast
-  const showToast = (message, type) => {
-    setToast({ show: true, message, type });
-    setTimeout(() => setToast({ show: false, message: '', type: '' }), 3000);
-  };
-
-  // password validation
   const validatePassword = (password) => {
-    const errors = [];
-    if (password.length < 6) errors.push('Must be at least 6 characters');
-    if (!/[A-Z]/.test(password)) errors.push('Must include an uppercase letter');
-    if (!/[a-z]/.test(password)) errors.push('Must include a lowercase letter');
-    return errors;
+    const errs = [];
+    if (password.length < 6) errs.push('At least 6 characters');
+    if (!/[A-Z]/.test(password)) errs.push('One uppercase letter');
+    if (!/[a-z]/.test(password)) errs.push('One lowercase letter');
+    return errs;
   };
 
-  // handle registration
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const validateForm = () => {
     const newErrors = {};
-
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else {
-      const passErrors = validatePassword(formData.password);
-      if (passErrors.length > 0) newErrors.password = passErrors.join(', ');
-    }
+    const passErrors = validatePassword(formData.password);
+    if (formData.password === '') newErrors.password = 'Password is required';
+    else if (passErrors.length > 0)
+      newErrors.password = 'Missing: ' + passErrors.join(', ');
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      showToast('Please fix the errors in the form', 'error');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      toast.error('Please fix all errors before submitting');
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      showToast('Registration successful!', 'success');
-      window.location.href = '/login';
+      toast.success('Registration successful!');
+      setTimeout(() => (window.location.href = '/'), 800);
     } catch (error) {
-      showToast('Error during registration: ' + error.message, 'error');
+      toast.error('Error during registration: ' + error.message);
     }
   };
 
-  // handle google login
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log('Google user:', result.user);
-      showToast('Google login successful!', 'success');
-      window.location.href = '/';
+      toast.success('Google login successful!');
+      setTimeout(() => (window.location.href = '/'), 800);
     } catch (error) {
-      showToast('Google login failed: ' + error.message, 'error');
+      toast.error('Google login failed: ' + error.message);
     }
   };
 
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      backgroundColor: '#fef3c7',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-    },
-    card: {
-      backgroundColor: '#fffbeb',
-      border: '2px solid #fde68a',
-      borderRadius: '12px',
-      padding: '40px',
-      maxWidth: '450px',
-      width: '100%',
-      boxShadow: '0 4px 12px rgba(146, 64, 14, 0.1)',
-    },
-    header: { textAlign: 'center', marginBottom: '30px' },
-    title: {
-      fontSize: '28px',
-      fontWeight: 'bold',
-      color: '#92400e',
-      marginBottom: '8px',
-    },
-    subtitle: { fontSize: '14px', color: '#78350f' },
-    formGroup: { marginBottom: '20px' },
-    label: {
-      display: 'block',
-      fontSize: '14px',
-      fontWeight: '500',
-      color: '#92400e',
-      marginBottom: '6px',
-    },
-    input: {
-      width: '100%',
-      padding: '12px',
-      border: '2px solid #fde68a',
-      borderRadius: '6px',
-      fontSize: '14px',
-      backgroundColor: '#fff',
-      color: '#1f2937',
-      transition: 'border-color 0.2s',
-    },
-    inputError: { borderColor: '#ef4444' },
-    errorText: { color: '#ef4444', fontSize: '12px', marginTop: '4px' },
-    passwordHints: {
-      fontSize: '12px',
-      color: '#78350f',
-      marginTop: '6px',
-      lineHeight: '1.5',
-    },
-    hintItem: { display: 'flex', alignItems: 'center', gap: '4px' },
-    button: {
-      width: '100%',
-      padding: '12px',
-      border: 'none',
-      borderRadius: '6px',
-      fontSize: '16px',
-      fontWeight: '600',
-      cursor: 'pointer',
-      marginTop: '10px',
-    },
-    registerButton: { backgroundColor: '#d97706', color: 'white' },
-    googleButton: {
-      backgroundColor: '#fff',
-      color: '#1f2937',
-      border: '2px solid #fde68a',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '8px',
-    },
-    divider: {
-      display: 'flex',
-      alignItems: 'center',
-      margin: '24px 0',
-      color: '#92400e',
-      fontSize: '14px',
-    },
-    dividerLine: { flex: 1, height: '1px', backgroundColor: '#fde68a' },
-    dividerText: { padding: '0 12px' },
-    footer: {
-      textAlign: 'center',
-      marginTop: '24px',
-      fontSize: '14px',
-      color: '#78350f',
-    },
-    link: {
-      color: '#d97706',
-      textDecoration: 'none',
-      fontWeight: '600',
-      cursor: 'pointer',
-    },
-    toast: {
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      padding: '16px 24px',
-      borderRadius: '8px',
-      color: 'white',
-      fontWeight: '500',
-      zIndex: 1000,
-      animation: 'slideIn 0.3s ease',
-    },
-    toastSuccess: { backgroundColor: '#10b981' },
-    toastError: { backgroundColor: '#ef4444' },
-  };
+  const passwordIsValid =
+    formData.password.length >= 6 &&
+    /[A-Z]/.test(formData.password) &&
+    /[a-z]/.test(formData.password);
+
+  const formIsValid =
+    formData.name.trim() !== '' &&
+    formData.email.trim() !== '' &&
+    passwordIsValid;
 
   return (
-    <div style={styles.container}>
-      {toast.show && (
-        <div
-          style={{
-            ...styles.toast,
-            ...(toast.type === 'success' ? styles.toastSuccess : styles.toastError),
-          }}
-        >
-          {toast.message}
-        </div>
-      )}
-
-      <div style={styles.card}>
-        <div style={styles.header}>
-          <h1 style={styles.title}>📚 Join Book Haven</h1>
-          <p style={styles.subtitle}>Create your account to start reading</p>
+    <div className="auth-container">
+      <Toaster position="top-right" />
+      <div className="auth-card">
+        <div className="auth-header">
+          <h1 className="auth-title">📚 Join Book Haven</h1>
+          <p className="auth-subtitle">Create your account to start reading</p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Name</label>
+          <div className="form-group">
+            <label className="label">Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              style={{
-                ...styles.input,
-                ...(errors.name ? styles.inputError : {}),
-              }}
+              className={`input ${errors.name ? 'input-error' : ''}`}
               required
             />
-            {errors.name && <div style={styles.errorText}>{errors.name}</div>}
+            {errors.name && <div className="error-text">{errors.name}</div>}
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Email</label>
+          <div className="form-group">
+            <label className="label">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              style={{
-                ...styles.input,
-                ...(errors.email ? styles.inputError : {}),
-              }}
+              className={`input ${errors.email ? 'input-error' : ''}`}
               required
             />
-            {errors.email && <div style={styles.errorText}>{errors.email}</div>}
+            {errors.email && <div className="error-text">{errors.email}</div>}
           </div>
 
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Password</label>
+          <div className="form-group password-group">
+            <label className="label">Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               value={formData.password}
               onChange={handleChange}
-              style={{
-                ...styles.input,
-                ...(errors.password ? styles.inputError : {}),
-              }}
+              className={`input input-icon ${errors.password ? 'input-error' : ''}`}
               required
             />
-            {errors.password && <div style={styles.errorText}>{errors.password}</div>}
+            <div
+              className="eye-icon"
+              onClick={() => setShowPassword((p) => !p)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </div>
+            {errors.password && <div className="error-text">{errors.password}</div>}
 
-            <div style={styles.passwordHints}>
-              <div style={styles.hintItem}>
-                <span
-                  style={{
-                    color: formData.password.length >= 6 ? '#10b981' : '#78350f',
-                  }}
-                >
+            <div className="password-hints">
+              <div className="hint-item">
+                <span className={formData.password.length >= 6 ? 'valid' : ''}>
                   {formData.password.length >= 6 ? '✓' : '○'}
                 </span>
                 <span>At least 6 characters</span>
               </div>
-              <div style={styles.hintItem}>
-                <span
-                  style={{
-                    color: /[A-Z]/.test(formData.password) ? '#10b981' : '#78350f',
-                  }}
-                >
+              <div className="hint-item">
+                <span className={/[A-Z]/.test(formData.password) ? 'valid' : ''}>
                   {/[A-Z]/.test(formData.password) ? '✓' : '○'}
                 </span>
                 <span>One uppercase letter</span>
               </div>
-              <div style={styles.hintItem}>
-                <span
-                  style={{
-                    color: /[a-z]/.test(formData.password) ? '#10b981' : '#78350f',
-                  }}
-                >
+              <div className="hint-item">
+                <span className={/[a-z]/.test(formData.password) ? 'valid' : ''}>
                   {/[a-z]/.test(formData.password) ? '✓' : '○'}
                 </span>
                 <span>One lowercase letter</span>
@@ -292,29 +156,27 @@ const Register = () => {
             </div>
           </div>
 
-          <button type="submit" style={{ ...styles.button, ...styles.registerButton }}>
+          <button
+            type="submit"
+            disabled={!formIsValid}
+            className={`btn ${formIsValid ? 'btn-register' : 'btn-disabled'}`}
+          >
             Register
           </button>
         </form>
 
-        <div style={styles.divider}>
-          <div style={styles.dividerLine}></div>
-          <span style={styles.dividerText}>OR</span>
-          <div style={styles.dividerLine}></div>
+        <div className="divider">
+          <div className="divider-line"></div>
+          <span className="divider-text">OR</span>
+          <div className="divider-line"></div>
         </div>
 
-        <button
-          style={{ ...styles.button, ...styles.googleButton }}
-          onClick={handleGoogleLogin}
-        >
+        <button className="btn btn-google" onClick={handleGoogleLogin}>
           Continue with Google
         </button>
 
-        <div style={styles.footer}>
-          Already have an account?{' '}
-          <a href="/login" style={styles.link}>
-            Login
-          </a>
+        <div className="auth-footer">
+          Already have an account? <a href="/login" className="link">Login</a>
         </div>
       </div>
     </div>

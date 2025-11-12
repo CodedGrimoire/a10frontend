@@ -6,43 +6,39 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import toast, { Toaster } from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react"; // lightweight icon library
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [toast, setToast] = useState({ show: false, message: "", type: "" });
+  const [showPassword, setShowPassword] = useState(false);
 
   const googleProvider = new GoogleAuthProvider();
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const showToast = (message, type) => {
-    setToast({ show: true, message, type });
-    setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      showToast("Login successful!", "success");
-      window.location.href = "/"; // go to home
+      toast.success("Login successful!");
+      setTimeout(() => (window.location.href = "/"), 1000);
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      showToast("Invalid credentials", "error");
+      toast.error("Invalid credentials");
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log("google user:", result.user);
-      showToast("Login successful!", "success");
-      window.location.href = "/";
+      console.log("Google user:", result.user);
+      toast.success("Login successful!");
+      setTimeout(() => (window.location.href = "/"), 1000);
     } catch (error) {
       console.error(error);
-      showToast("Google login failed", "error");
+      toast.error("Google login failed");
     }
   };
 
@@ -80,6 +76,7 @@ const Login = () => {
     },
     formGroup: {
       marginBottom: "20px",
+      position: "relative",
     },
     label: {
       display: "block",
@@ -90,14 +87,20 @@ const Login = () => {
     },
     input: {
       width: "100%",
-      padding: "12px",
+      padding: "12px 40px 12px 12px",
       border: "2px solid #fde68a",
       borderRadius: "6px",
       fontSize: "14px",
       backgroundColor: "#fff",
       color: "#1f2937",
       boxSizing: "border-box",
-      transition: "border-color 0.2s",
+    },
+    eyeIcon: {
+      position: "absolute",
+      right: "10px",
+      top: "38px",
+      cursor: "pointer",
+      color: "#92400e",
     },
     forgotPassword: {
       textAlign: "right",
@@ -160,48 +163,18 @@ const Login = () => {
       fontWeight: "600",
       cursor: "pointer",
     },
-    toast: {
-      position: "fixed",
-      top: "20px",
-      right: "20px",
-      padding: "16px 24px",
-      borderRadius: "8px",
-      color: "white",
-      fontWeight: "500",
-      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-      zIndex: 1000,
-      animation: "slideIn 0.3s ease",
-    },
-    toastSuccess: {
-      backgroundColor: "#10b981",
-    },
-    toastError: {
-      backgroundColor: "#ef4444",
-    },
   };
 
   return (
     <div style={styles.container}>
-      {toast.show && (
-        <div
-          style={{
-            ...styles.toast,
-            ...(toast.type === "success"
-              ? styles.toastSuccess
-              : styles.toastError),
-          }}
-        >
-          {toast.message}
-        </div>
-      )}
-
+      <Toaster position="top-right" />
       <div style={styles.card}>
         <div style={styles.header}>
           <h1 style={styles.title}>📚 Welcome Back</h1>
           <p style={styles.subtitle}>Log in to your Book Haven account</p>
         </div>
 
-        <div>
+        <form onSubmit={handleSubmit}>
           <div style={styles.formGroup}>
             <label style={styles.label}>Email</label>
             <input
@@ -217,13 +190,19 @@ const Login = () => {
           <div style={styles.formGroup}>
             <label style={styles.label}>Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
               style={styles.input}
               required
             />
+            <div
+              style={styles.eyeIcon}
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </div>
             <div style={styles.forgotPassword}>
               <a
                 style={styles.forgotLink}
@@ -234,14 +213,10 @@ const Login = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleSubmit}
-            style={{ ...styles.button, ...styles.loginButton }}
-          >
+          <button type="submit" style={{ ...styles.button, ...styles.loginButton }}>
             Login
           </button>
-        </div>
+        </form>
 
         {/* divider */}
         <div style={styles.divider}>
@@ -255,51 +230,16 @@ const Login = () => {
           style={{ ...styles.button, ...styles.googleButton }}
           onClick={handleGoogleLogin}
         >
-          <svg width="20" height="20" viewBox="0 0 20 20">
-            <path
-              d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"
-              fill="#4285F4"
-            />
-            <path
-              d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"
-              fill="#34A853"
-            />
-            <path
-              d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 000 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"
-              fill="#FBBC05"
-            />
-            <path
-              d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"
-              fill="#EA4335"
-            />
-          </svg>
           Continue with Google
         </button>
 
-        {/* footer link */}
         <div style={styles.footer}>
           Don&apos;t have an account?{" "}
-          <a
-            href="/register"
-            style={styles.link}
-          >
+          <a href="/register" style={styles.link}>
             Register
           </a>
         </div>
       </div>
-
-      <style>{`
-        @keyframes slideIn {
-          from {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   );
 };

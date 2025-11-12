@@ -14,7 +14,7 @@ import Error from "./components/Error"
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
 import BookDetails from "./components/bookdetail";
-
+import FP from "./components/auth/forgotpass"
 import { useAuth } from "./hooks/useAuth";
 
 function PrivateRoute({ children }) {
@@ -31,10 +31,12 @@ export default function App() {
         <Navbar />
         <main className="flex-1">
           <Routes>
-            {/* public */}
+           
             <Route path="/" element={<MH />} />
             <Route path="/all" element={<AllBooks />} />
-
+<Route
+  path="/forgot-password"  element={<FP/>}
+/>
             
             <Route
               path="/my"
