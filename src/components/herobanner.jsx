@@ -5,6 +5,7 @@ import './main.css';
 
 const HeroBanner = () => {
   return (
+    
     <div className="hero-banner">
       <div className="banner-content animate__animated animate__fadeInUp">
         <h1>Welcome to the Bookstore</h1>
