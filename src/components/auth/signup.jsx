@@ -1,5 +1,6 @@
 // src/components/auth/Register.jsx
 import React, { useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -8,14 +9,19 @@ import {
 import { auth } from '../../firebaseConfig';
 import toast, { Toaster } from 'react-hot-toast';
 import { Eye, EyeOff } from 'lucide-react';
-import './auth.css'; // imported CSS file
+import './auth.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const provider = new GoogleAuthProvider();
+
+  // target after signup (fallback to home)
+  const from = location.state?.from?.pathname || '/';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,8 +43,7 @@ const Register = () => {
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     const passErrors = validatePassword(formData.password);
     if (formData.password === '') newErrors.password = 'Password is required';
-    else if (passErrors.length > 0)
-      newErrors.password = 'Missing: ' + passErrors.join(', ');
+    else if (passErrors.length > 0) newErrors.password = 'Missing: ' + passErrors.join(', ');
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -49,11 +54,10 @@ const Register = () => {
       toast.error('Please fix all errors before submitting');
       return;
     }
-
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       toast.success('Registration successful!');
-      setTimeout(() => (window.location.href = '/'), 800);
+      setTimeout(() => navigate(from, { replace: true }), 400);
     } catch (error) {
       toast.error('Error during registration: ' + error.message);
     }
@@ -61,10 +65,9 @@ const Register = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log('Google user:', result.user);
+      await signInWithPopup(auth, provider);
       toast.success('Google login successful!');
-      setTimeout(() => (window.location.href = '/'), 800);
+      setTimeout(() => navigate(from, { replace: true }), 400);
     } catch (error) {
       toast.error('Google login failed: ' + error.message);
     }
@@ -129,9 +132,12 @@ const Register = () => {
             <div
               className="eye-icon"
               onClick={() => setShowPassword((p) => !p)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              title={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </div>
+
             {errors.password && <div className="error-text">{errors.password}</div>}
 
             <div className="password-hints">
@@ -176,7 +182,11 @@ const Register = () => {
         </button>
 
         <div className="auth-footer">
-          Already have an account? <a href="/login" className="link">Login</a>
+          Already have an account?{" "}
+          {/* preserve 'from' when switching to login */}
+          <Link to="/login" state={{ from }} className="link">
+            Login
+          </Link>
         </div>
       </div>
     </div>

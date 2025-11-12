@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import HBan from "./herobanner";
 import Topss from "./TopGenres";
 import Bweek from "./bookOfWeek"
@@ -10,8 +11,10 @@ import axios from "axios";
 
 const Maincontent = () => {
   const [books, setBooks] = useState([]);
+  
   const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -72,9 +75,13 @@ const Maincontent = () => {
               <p><strong>Author:</strong> {book.author}</p>
               <p><strong>Genre:</strong> {book.genre}</p>
               <p><strong>Rating:</strong> {book.rating} / 5</p>
-              <button onClick={() => navigate(`/book-details/${book._id}`)}>
-                View Details
-              </button>
+              <button
+  onClick={() =>
+    navigate(`/book-details/${book._id}`, { state: { from: location } })
+  }
+>
+  View Details
+</button>
             </div>
           ))}
 

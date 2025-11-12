@@ -1,6 +1,7 @@
+// src/components/TopGenres.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import "./main.css";
@@ -9,7 +10,9 @@ const TopGenres = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchTopRatedBooks = async () => {
@@ -27,13 +30,12 @@ const TopGenres = () => {
     fetchTopRatedBooks();
   }, []);
 
- if (loading)
-  return (
-    <div className="flex justify-center items-center h-64">
-      <span className="loading loading-spinner loading-lg text-[#813b10]"></span>
-    </div>
-  );
-
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-64">
+        <span className="loading loading-spinner loading-lg text-[#813b10]"></span>
+      </div>
+    );
 
   if (error)
     return (
@@ -44,7 +46,7 @@ const TopGenres = () => {
 
   return (
     <>
-      {/* mount ONCE */}
+      {/* Mount ONCE */}
       <Tooltip id="book-tooltip" place="top" className="book-tooltip" />
 
       <div className="top-genres-container">
@@ -108,10 +110,15 @@ const TopGenres = () => {
                       )}
                     </div>
                   )}
+
                   <button
                     className="view-details-button"
                     style={{ backgroundColor: "#813b10", color: "white" }}
-                    onClick={() => navigate(`/book-details/${book._id}`)}
+                    onClick={() =>
+                      navigate(`/book-details/${book._id}`, {
+                        state: { from: location }, // 👈 keep redirect state
+                      })
+                    }
                   >
                     View Details
                   </button>

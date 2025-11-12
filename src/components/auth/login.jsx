@@ -1,5 +1,6 @@
 // src/components/auth/Login.jsx
 import React, { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
@@ -13,17 +14,26 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const googleProvider = new GoogleAuthProvider();
+
+  // where to go after login (default = home)
+  const from = location.state?.from?.pathname || "/";
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.email || !formData.password) {
+      toast.error("Please fill all fields");
+      return;
+    }
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       toast.success("Login successful!");
-      setTimeout(() => (window.location.href = "/"), 1000);
+      setTimeout(() => navigate(from, { replace: true }), 400);
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error("Invalid credentials");
@@ -32,16 +42,16 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google user:", result.user);
+      await signInWithPopup(auth, googleProvider);
       toast.success("Login successful!");
-      setTimeout(() => (window.location.href = "/"), 1000);
+      setTimeout(() => navigate(from, { replace: true }), 400);
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      console.error(error);
       toast.error("Google login failed");
     }
   };
 
+  // inline styles kept from your version
   const styles = {
     container: {
       minHeight: "100vh",
@@ -200,16 +210,16 @@ const Login = () => {
             <div
               style={styles.eyeIcon}
               onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              title={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </div>
             <div style={styles.forgotPassword}>
-              <a
-                style={styles.forgotLink}
-                onClick={() => (window.location.href = "/forgot-password")}
-              >
+              {/* preserve 'from' when going to forgot-password */}
+              <Link to="/forgot-password" state={{ from }} style={styles.forgotLink}>
                 Forgot Password?
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -235,9 +245,11 @@ const Login = () => {
 
         <div style={styles.footer}>
           Don&apos;t have an account?{" "}
-          <a href="/register" style={styles.link}>
-            Register
-          </a>
+         
+         <Link to="/register" state={location.state} style={styles.link}>
+  Register
+</Link>
+
         </div>
       </div>
     </div>

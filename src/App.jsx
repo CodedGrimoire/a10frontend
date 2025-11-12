@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import "./App.css";
 
 import Navbar from "./components/navbar";
@@ -10,17 +10,29 @@ import AllBooks from "./components/Allbooks";
 import MY from "./components/mybooks";
 import ADD from "./components/addbooks";
 
-import Error from "./components/Error"
+import Error from "./components/Error";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
 import BookDetails from "./components/bookdetail";
-import FP from "./components/auth/forgotpass"
+import FP from "./components/auth/forgotpass";
 import { useAuth } from "./hooks/useAuth";
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
+  const location = useLocation();
+
   if (loading) return <p className="p-4">loading...</p>;
-  if (!user) return <Navigate to="/login" replace />;
+
+  if (!user) {
+    // send user to login but also include from location
+    return (
+      <Navigate
+        to="/login"
+        replace
+        state={{ from: location }}
+      />
+    );
+  }
   return children;
 }
 
@@ -31,13 +43,12 @@ export default function App() {
         <Navbar />
         <main className="flex-1">
           <Routes>
-           
+            {/* public */}
             <Route path="/" element={<MH />} />
             <Route path="/all" element={<AllBooks />} />
-<Route
-  path="/forgot-password"  element={<FP/>}
-/>
-            
+            <Route path="/forgot-password" element={<FP />} />
+
+            {/* private */}
             <Route
               path="/my"
               element={
@@ -62,11 +73,13 @@ export default function App() {
                 </PrivateRoute>
               }
             />
-             <Route path="*" element={<Error />} />
 
-            {/* auth */}
+            {/* auth routes that preserve redirect state */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
+
+            {/* 404 */}
+            <Route path="*" element={<Error />} />
           </Routes>
         </main>
         <Footer />
