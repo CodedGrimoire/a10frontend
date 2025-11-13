@@ -66,7 +66,7 @@ const Navbar = () => {
               <div className="user-tooltip">
 
 
-                {user.displayName || user.email} </div>
+                {user.displayName || user.email || user.name} </div>
              
             </div>
 
