@@ -32,6 +32,15 @@ const AddBooks = () => {
 
 
   const handleChange = (e) => {
+
+    if (e.target.name === "rating") {
+  let value = parseFloat(e.target.value);
+  if (value > 5) value = 5;
+  if (value < 1) value = 1;
+  setBook({ ...book, rating: value });
+  return;
+}
+
     setBook({ ...book, [e.target.name]: e.target.value });
   };
 
@@ -51,6 +60,14 @@ const AddBooks = () => {
       toast.error("Title, Author, and Genre are required.");
       return;
     }
+if (book.rating && Number(book.rating) > 5) {
+  toast.error("Rating cannot be more than 5.");
+  return;
+}
+if (book.rating && Number(book.rating) < 1) {
+  toast.error("Rating cannot be less than 1.");
+  return;
+}
 
     const payload = 
     {
