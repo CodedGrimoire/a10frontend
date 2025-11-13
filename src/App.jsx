@@ -24,7 +24,7 @@ function PrivateRoute({ children }) {
   if (loading) return <p className="p-4">loading...</p>;
 
   if (!user) {
-    // send user to login but also include from location
+  
     return (
       <Navigate
         to="/login"
@@ -74,13 +74,29 @@ export default function App() {
               }
             />
 
-            {/* auth routes that preserve redirect state */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Signup />} />
+           
+            <Route path="/login"
+            
+            
+            element={<Login />} />
 
-            {/* 404 */}
-            <Route path="*" element={<Error />} />
+
+            <Route path="/register" 
+            
+            
+            element={<Signup />} />
+
+           
+            <Route path="*" 
+            
+            
+            
+            element={<Error />} />
+
+
           </Routes>
+
+
         </main>
         <Footer />
       </div>

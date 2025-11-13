@@ -44,7 +44,14 @@
  
  
 }
+.nobookinall{
+  color: red;
+  justify-self: center;
 
+  margin-top: 200px;
+  margin-bottom: 200px;
+  align-self: center;
+}
 
 
 .book-card h3 {

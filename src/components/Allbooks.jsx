@@ -70,6 +70,11 @@ const AllBooks = () => {
     );
   }
 
+
+if (books.length === 0) {
+  return <h1 className ="nobookinall">No books Found</h1>
+}
+if(books.length !==0){
   return (
     <div className="aallbc">
       <h2>All Books</h2>
@@ -149,6 +154,7 @@ const AllBooks = () => {
       </div>
     </div>
   );
-};
+};}
+
 
 export default AllBooks;
