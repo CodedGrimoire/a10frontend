@@ -13,6 +13,7 @@ import './auth.css';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+   updateProfile,
   signInWithPopup,
 } from 'firebase/auth';
 
@@ -87,7 +88,15 @@ const Register = () => {
     try
     
     {
-      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+     const userCredential = await createUserWithEmailAndPassword(
+  auth,
+  formData.email,
+  formData.password
+);
+await updateProfile(userCredential.user, {
+  displayName: formData.name,
+});
+      
 
       toast.success('Registration successful!');
       setTimeout(() => navigate(from, { replace: true }), 400);
