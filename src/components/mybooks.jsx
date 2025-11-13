@@ -238,6 +238,8 @@ const MyBooks = () => {
     );
   }
 
+
+
   return (
     <div className="mines">
       <Toaster />
@@ -250,6 +252,8 @@ const MyBooks = () => {
 
       {fetching ? (
         <div className="loading-state">
+
+
           <div className="loading-spinner"></div>
           <p>
             
@@ -273,19 +277,28 @@ const MyBooks = () => {
       
       (
         <div className="table-wrapper">
+
           <table className="books-table">
             <thead>
               <tr>
                 <th>Cover</th>
+
+
                 <th>Title / Author</th>
+
+
                 <th>Genre</th>
                 <th>Rating</th>
+
+
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {books.map((book) => (
                 <tr key={book._id}>
+
+
                   <td>
                     <img
                       src={book.coverImage}
@@ -293,6 +306,8 @@ const MyBooks = () => {
                       className="tmb"
                     />
                   </td>
+
+
                   <td>
                     <div className="book-title-cell">
                       
@@ -308,11 +323,18 @@ const MyBooks = () => {
                     </div>
                   </td>
                   <td>{book.genre || "-"}</td>
+
+
+
                   <td>{book.rating || "-"}</td>
                   <td>
                     <div className="action-buttons">
+
+
+
                       <button
                         onClick={() => openUpdateModal(book)}
+
                         className="btn-update"
                       >
                         Update
@@ -369,6 +391,8 @@ const MyBooks = () => {
 
                   type="text"
                   name="title"
+
+
                   value={formData.title}
                   onChange={handleChange}
                   className="form-input"
@@ -390,6 +414,8 @@ const MyBooks = () => {
                   type="text"
                   name="author"
                   value={formData.author}
+
+
                   onChange={handleChange}
                   className="form-input"
                   required
@@ -397,11 +423,24 @@ const MyBooks = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Genre *</label>
+                <label
+                
+                className="form-label">
+                  
+                  
+                  
+                  Genre *
+                  
+                  </label>
+
+
                 <input
                   type="text"
                   name="genre"
                   value={formData.genre}
+
+
+
                   onChange={handleChange}
                   className="form-input"
                   required
@@ -409,12 +448,20 @@ const MyBooks = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Rating (1–5)</label>
+                <label className="form-label">
+                  
+                  
+                  Rating (1–5)
+                  
+                  
+                  </label>
                 <input
                   type="number"
                   name="rating"
                   value={formData.rating}
                   onChange={handleChange}
+
+
                   className="form-input"
                   min="1"
                   max="5"
@@ -427,6 +474,9 @@ const MyBooks = () => {
                 <textarea
                   name="summary"
                   value={formData.summary}
+
+
+
                   onChange={handleChange}
                   className="form-textarea"
                   rows="3"
@@ -434,11 +484,22 @@ const MyBooks = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Cover Image URL</label>
+
+
+                
+                <label className="form-label">
+                  
+                  Cover Image URL
+                  
+                  
+                  </label>
                 <input
                   type="text"
                   name="coverImage"
                   value={formData.coverImage}
+
+
+
                   onChange={handleChange}
                   className="form-input"
                 />
@@ -452,6 +513,9 @@ const MyBooks = () => {
                 >
                   Cancel
                 </button>
+
+
+
                 <button
                   type="button"
                   onClick={handleUpdateSubmit}

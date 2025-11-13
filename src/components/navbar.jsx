@@ -10,6 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const Navbar = () => {
   const { user, loading, logout } = useAuth();
+  
   const location = useLocation();
 
   const isActive = (path) => 
@@ -59,14 +60,26 @@ const Navbar = () => {
                 alt=""  className="user-avatar"
                
               />
+
+
+
               <div className="user-tooltip">
 
 
                 {user.displayName || user.email} </div>
              
             </div>
-            <button onClick={logout} className="btn-logout">
+
+
+
+            <button onClick={logout} 
+            
+            className="btn-logout">
+
+
               Log out
+
+
             </button>
           </div>
         ) :
@@ -74,10 +87,22 @@ const Navbar = () => {
         
         (
           <div className="auth-buttons">
-            <Link to="/login" className="btn-login">
+            <Link to="/login" 
+            
+            
+            className="btn-login">
               Login
+
+
             </Link>
-            <Link to="/register" className="btn-register">
+
+
+            <Link to="/register" 
+            
+            className="btn-register">
+
+
+
               Register
             </Link></div>
           

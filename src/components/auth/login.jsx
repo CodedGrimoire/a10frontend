@@ -356,6 +356,7 @@ const Login = () => {
              
               <Link to="/forgot-password" state={{ from }} style={styles.forgotLink}>
                 Forgot Password?
+
               </Link>
             </div>
           </div>
@@ -372,6 +373,7 @@ const Login = () => {
 
           </div>
           <span style={styles.dividerText}>
+
             
             
             OR
@@ -383,6 +385,8 @@ const Login = () => {
        
         <button
           style={{ ...styles.button, ...styles.googleButton }}
+
+          
           onClick={handleGoogleLogin}
         >
           Continue with Google

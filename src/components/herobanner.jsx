@@ -1,8 +1,11 @@
 import React from 'react';
+
+import './main.css';
+
 import { Link } from 'react-router-dom';
 
 
-import './main.css';
+
 
 
 import 'animate.css';
@@ -14,7 +17,7 @@ const HeroBanner = () => {
     <div className="hero-banner">
 
       <div className="banner-content animate__animated animate__fadeInUp">
-        <h1>Welcome to the Bookstore
+        <h1>Welcome to the BookHaven
 
 
         </h1>
@@ -27,6 +30,8 @@ const HeroBanner = () => {
 
         <div className="button-container">
           <Link to="/all">
+
+          
             <button className="btn-all-books">
               
               All Books

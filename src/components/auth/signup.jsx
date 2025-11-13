@@ -130,11 +130,14 @@ const Register = () => {
   return (
     <div className="auth-container">
       <Toaster position="top-right" />
+
+
       <div className="auth-card">
 
 
 
         <div className="auth-header">
+
           <h1 className="auth-title">
             
             
@@ -169,9 +172,15 @@ const Register = () => {
 
               onChange={handleChange}
               className={`input ${errors.name ? 'input-error' : ''}`}
+
+
               required
             />
-            {errors.name && <div className="error-text">{errors.name}</div>}
+            {errors.name && <div className="error-text">
+              
+              {errors.name}
+              
+              </div>}
           </div>
 
 
@@ -190,12 +199,19 @@ const Register = () => {
 
 
               onChange={handleChange}
+
+
               className={`input ${errors.email ? 'input-error' : ''}`}
 
 
               required
             />
-            {errors.email && <div className="error-text">{errors.email}</div>}
+            {errors.email && <div className="error-text">
+              
+              
+              {errors.email}
+              
+              </div>}
           </div>
 
           <div className="form-group password-group">
@@ -233,11 +249,17 @@ const Register = () => {
             {errors.password && <div className="error-text">{errors.password}</div>}
 
             <div className="password-hints">
+
+
               <div className="hint-item">
                 <span className={formData.password.length >= 6 ? 'valid' : ''}>
+
+
                   {formData.password.length >= 6 ? '✓' : '○'}
                 </span>
                 <span>At least 6 characters</span>
+
+                
 
               </div>
               <div className="hint-item">

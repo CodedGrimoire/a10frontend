@@ -106,7 +106,10 @@ const Maincontent = () => {
                 
                 <strong>
                   
-                  Rating:</strong> 
+                  Rating:
+                  
+                  
+                  </strong> 
                   
                   {book.rating} / 5
                   

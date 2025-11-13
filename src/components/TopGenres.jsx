@@ -1,4 +1,4 @@
-// src/components/TopGenres.jsx
+
 import React, { useState, useEffect } from "react";
 
 import "./main.css";
@@ -83,7 +83,13 @@ const TopGenres = () => {
           {books.length === 0 ? 
           
           (
-            <p className="no-books-message">No books found.</p>
+            <p className="no-books-message">
+              
+              
+              No books found.
+              
+              
+              </p>
           ) : 
           
           (
@@ -151,7 +157,9 @@ const TopGenres = () => {
                           ? book.rating.toFixed(1)
 
 
-                          : book.rating} </span>
+                          : book.rating} 
+                          
+                          </span>
                      
 
 
@@ -170,7 +178,8 @@ const TopGenres = () => {
                       
                       color: "white" }}
                     onClick={() =>
-                      navigate(`/book-details/${book._id}`, {
+                      navigate(`/book-details/${book._id}`, 
+                        {
                         state: { from: location }, 
                       })
                     }

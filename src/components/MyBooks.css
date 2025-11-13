@@ -155,9 +155,11 @@ border-bottom: 2px solid #fde68a;
   
 
   border: none;
+
+padding: 7px 13px;
+
   border-radius: 6px;
   font-size: 13px;
-padding: 7px 13px;
   font-weight: 500;
  
   
@@ -173,10 +175,15 @@ padding: 7px 13px;
 }
 
 
+
+
 .btn-delete {
   background-color: #dc2626;
+
+
   color: white;
 }
+
 
 .modal-overlay {
   position: fixed;
@@ -209,9 +216,13 @@ padding: 7px 13px;
 
 .modal-title {
   font-size: 24px;
+
+margin: 0;
+
+
   font-weight: 600;
   color: #92400e;
-  margin: 0;
+  
 }
 
 
@@ -226,23 +237,19 @@ padding: 7px 13px;
 
 .form-label {
   display: block;
-  font-size: 14px;
-  font-weight: 500;
+ 
   color: #92400e;
   margin-bottom: 6px;
+
+ font-size: 14px;
+  font-weight: 500;
 }
 
 .form-input {
   width: 100%;
 
     font-size: 14px;
-  background-color: white;
-  padding: 12px;
   
-  color: #1f2937;
-
-
-  border:#fde68a 2px solid ;
   border-radius: 7px;
 
   box-sizing: border-box;
@@ -256,15 +263,20 @@ padding: 7px 13px;
 }
 
 .form-textarea {
+
+  color: #1f2937;
   width: 100%;
   padding: 12px;
   
-  color: #1f2937;
+
   box-sizing: border-box;
  
  
   resize: vertical;
 }
+
+
+
 
 .form-textarea:focus {
   outline: none;
@@ -288,9 +300,7 @@ padding: 7px 13px;
 
 
    color: #92400e;
-  border-radius: 6px;
-  font-size: 14px;
-  border: 2px #fde68a solid ;
+ 
 
   font-weight: 500;
   background-color: transparent;
@@ -305,11 +315,7 @@ padding: 7px 13px;
   border: none;
 
 
-  border-radius: 7px;
-  font-size: 14px;
- 
   
-  background-color: #d97706;
    font-weight: 500;
   color: white;
   
@@ -329,20 +335,26 @@ padding: 7px 13px;
     padding: 16px 12px;
   }
 
-  .my-books-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+  
 
-  /* Remove table, show as cards */
+
   .table-wrapper {
     overflow: visible;
   }
 
+
+  .my-books-title {
+    font-size: 24px;
+
+   margin-bottom: 20px;
+   
+  }
   .books-table {
     display: block;
     width: 100%;
   }
+
+
 
   .books-table thead {
     display: none;
@@ -350,65 +362,96 @@ padding: 7px 13px;
 
   .books-table tbody {
     display: flex;
+
+     gap: 16px;
     flex-direction: column;
-    gap: 16px;
+   
   }
 
   .books-table tbody tr {
     display: flex;
-    flex-direction: column;
-    background: #fff;
+   
+    border-radius: 9px;
+
+
+     flex-direction: column;
+    background: white;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+   
   }
 
-  .books-table tbody td {
-    display: block;
-    padding: 0;
-    border: none;
-    text-align: left;
-  }
+  
 
-  /* Cover image at top */
+ 
   .books-table tbody td:nth-child(1) {
     text-align: center;
+
+
     margin-bottom: 12px;
   }
 
   .tmb {
     width: 80px;
+  
+    border-radius: 4px;
+
     height: 120px;
     object-fit: cover;
-    border-radius: 4px;
+
+
+
   }
 
-  /* Title/Author section */
+
+ .books-table tbody td {
+    display: block;
+
+
+     border: none;
+    text-align: left;
+    padding: 0;
+   
+  }
+
+
+
+
   .books-table tbody td:nth-child(2) {
     margin-bottom: 12px;
   }
 
   .book-title-cell {
     font-size: 16px;
+
+
+     margin-bottom: 4px;
     font-weight: 600;
-    margin-bottom: 4px;
+   
   }
 
+  
   .book-author-cell {
     font-size: 14px;
-    color: #666;
+    color: #575656;
   }
 
-  /* Genre and Rating with labels */
+ 
   .books-table tbody td:nth-child(3),
   .books-table tbody td:nth-child(4) {
     display: flex;
+
+
+   margin-bottom: 8px;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+  
     font-size: 14px;
+
+    gap: 8px;
+   
   }
+
+
 
   .books-table tbody td:nth-child(3)::before {
     content: "Genre:";
@@ -420,28 +463,36 @@ padding: 7px 13px;
     font-weight: 600;
   }
 
-  /* Actions */
+  
   .books-table tbody td:nth-child(5) {
     margin-top: 12px;
+
+   border-top: 1px solid #f0f0f0;
     padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
+   
   }
 
   .action-buttons {
     display: flex;
-    flex-direction: row;
+
     gap: 8px;
+    flex-direction: row;
+  
   }
 
   .btn-update,
   .btn-delete {
     flex: 1;
+
+     white-space: nowrap;
     font-size: 14px;
+
+
     padding: 10px;
-    white-space: nowrap;
+   
   }
 
-  /* Empty/Loading states */
+ 
   .empty-state,
   .loading-state {
     padding: 40px 20px;
@@ -453,7 +504,7 @@ padding: 7px 13px;
     height: 32px;
   }
 
-  /* Modal improvements */
+ 
   .modal-overlay {
     padding: 0;
     align-items: flex-end;
@@ -461,10 +512,13 @@ padding: 7px 13px;
 
   .modal-content {
     max-width: 100%;
-    width: 100%;
+   
+    border-radius: 16px 16px 0 0;
+
+
+     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    border-radius: 16px 16px 0 0;
     margin: 0;
   }
 
@@ -476,48 +530,67 @@ padding: 7px 13px;
     z-index: 10;
   }
 
-  .modal-title {
-    font-size: 18px;
-  }
+
+ 
 
   .modal-close {
+
+     height: 32px;
     width: 32px;
-    height: 32px;
+   
   }
+
+
+
 
   .modal-body {
     padding: 0 16px 16px;
   }
 
+
+
   .form-group {
     margin-bottom: 16px;
   }
+
 
   .form-label {
     font-size: 14px;
     margin-bottom: 6px;
   }
+ 
+  .modal-title {
+    font-size: 18px;
+  }
+
+
 
   .form-input,
   .form-textarea {
     font-size: 16px;
+
+     box-sizing: border-box;
     padding: 10px;
     width: 100%;
-    box-sizing: border-box;
+   
   }
 
   .modal-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+   
     margin-top: 20px;
+
+     gap: 10px;
   }
 
   .btn-cancel,
   .btn-submit {
     width: 100%;
+
+     font-size: 16px;
     padding: 12px;
-    font-size: 16px;
+   
   }
 }
 @keyframes spin {
@@ -551,11 +624,13 @@ padding: 7px 13px;
 
 .modal-overlay{
 top: 0;
-  left: 0;
+ 
   right: 0;
   bottom: 0;
   
   display: flex;
+
+   left: 0;
   align-items: center;
 
 }
@@ -597,9 +672,43 @@ top: 0;
 
   border: solid #fde68a 2px ;
 
+   background-color: white;
+
+
   font-size: 14px;
   border-radius: 6px;
   
-  background-color: white;
+ 
+}
 
+
+.form-input {
+
+  border:#fde68a 2px solid ;
+
+
+  background-color: white;
+  padding: 12px;
+  
+  color: #1f2937;
+
+
+
+
+}
+
+.btn-cancel{
+ border-radius: 6px;
+  font-size: 14px;
+  border: 2px  solid #fde68a;
+}
+
+
+
+.btn-submit {
+border-radius: 7px;
+  font-size: 14px;
+ 
+  
+  background-color: #d97706;
 }

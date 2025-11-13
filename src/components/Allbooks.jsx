@@ -102,8 +102,8 @@ const AllBooks = () => {
           <div key={book._id} className="book-card">
             <img
               src={
-                book.coverImage ||
-                "https://via.placeholder.com/300x400?text=Book+Cover"
+                book.coverImage 
+               
               }
               alt=""
             />
@@ -135,7 +135,9 @@ const AllBooks = () => {
 
             <button
               onClick={() =>
-                navigate(`/book-details/${book._id}`, {
+                navigate(`/book-details/${book._id}`,
+                  
+                  {
                   state: { from: location },
                 })
               }

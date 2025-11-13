@@ -260,7 +260,11 @@ const About = () => {
             </h3>
             <p style={{
               fontSize: '15px',
+
+
               color: '#6b7280',
+
+
               lineHeight: '1.6'
 
 
@@ -273,7 +277,12 @@ const About = () => {
           </div>  </div>
       
       </div>
+
+
+
     </section>
+
+    
   );
 };
 
