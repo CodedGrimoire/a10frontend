@@ -49,31 +49,26 @@ button {
 }
 
 .btn-all-books {
-  background-color: #92400e; /* Warm brown */
+  background-color: #92400e; 
   color: white;
 }
 
 .btn-create-book {
-  background-color: #b45309; /* Lighter brown */
+  background-color: #b45309; 
   color: white;
 }
 
-button:hover {
-  opacity: 0.85;
-  transform: translateY(-2px);
-  transition: all 0.3s ease;
-}
 
 .btn-all-books:hover {
-  background-color: #78350f; /* Darker brown on hover */
+  background-color: #78350f; 
 }
 
 .btn-create-book:hover {
-  background-color: #92400e; /* Darker on hover */
+  background-color: #92400e; 
 }
 
-/* Container for the entire top genres section */
-.top-genres {
+
+.tgrr {
   width: 100%;
   margin: 0 auto;
   padding: 32px 16px;
@@ -81,7 +76,7 @@ button:hover {
   
 }
 
-/* Header Section */
+
 .header {
   display: flex;
   align-items: center;
@@ -123,19 +118,19 @@ button:hover {
 
 
 
-.grid-container {
+.tgrr-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
-  background-color: antiquewhite;
-  padding: 100px;
+  background-color: rgb(250, 247, 235);
+  padding: 50px;
  
    
   
   
 }
-.top-genres{
-     background-color: antiquewhite;
+.tgrr{
+     background-color: white;
       
       width: 100%;
     
@@ -153,7 +148,7 @@ button:hover {
   color: #666;
 }
 
-/* Book Card */
+
 .bookies {
   background-color: white;
   border-radius: 12px;
@@ -163,7 +158,7 @@ button:hover {
 }
 
 
-/* Book Image */
+
 .bookies-image {
   height: 300px;
   overflow: hidden;
@@ -176,7 +171,7 @@ button:hover {
   object-fit: cover;
 }
 
-/* Book Info */
+
 .book-info {
   padding: 20px;
 }
@@ -252,7 +247,7 @@ button:hover {
 }
 
 
-/* Loading and Error Containers */
+
 .loading-container, .error-text {
   display: flex;
   align-items: center;
@@ -280,21 +275,85 @@ button:hover {
   padding: 8px 10px !important;
 }
 
+.aboutergrid {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 40px;
+}
+
 .react-tooltip {
   z-index: 9999;
 }
 
+.toogle{
+   position: relative;
+  border-radius: 20px;
+  top: 10px;
+  right: 20px;
+  bottom: 10px;
+  left: 20px;
+  padding: 10px 20px;
+  z-index: 1000;
+  border-color: #3e2723;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
 
+.light .toogle {
+  background-color: #fef3c7;
+  color: #3e2723;
+}
 
+/* Dark mode */
+.dark .toogle {
+  background-color: #3e2723;
+  color: #fef3c7;
+}
 
 @media (max-width: 576px) {
-  .grid-container{
+  .tgrr-container{
      grid-template-columns: repeat(1, 1fr);
+     width: 100%;
+     margin: 0 auto;
   }
+.tgrr{
+  
+}
+ .aboutergrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.hero-banner{
+  width: 80%;
 
-  .aboutergrid{
+ 
+  margin: 0 auto;
+}
 
-     grid-template-columns: 1fr;
 
-  }
+
+.toogle{
+   position: relative;
+  border-radius: 20px;
+ 
+  right: 20px;
+ 
+  left: 20px;
+ 
+  z-index: 1000;
+  border-color: #3e2723;
+  font-weight: 600;
+  
+}
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ede7e3;
+  font-weight: bold;
+}
+
+p {
+  display: none;
+}
 }

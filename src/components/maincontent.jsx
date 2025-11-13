@@ -59,28 +59,10 @@ const Maincontent = () => {
     }}>
      
       <button
-        onClick={() => setIsDark(!isDark)}
-        style={{
-          position: 'fixed',
+        onClick={() => setIsDark(!isDark)} className="toogle"
 
-             borderRadius: '20px',
-          top: '80px',
-          right: '20px',
         
-          backgroundColor: isDark ? '#fef3c7' : '#3e2723',
-
-
-            padding: '10px 20px',
-          color: isDark ? '#3e2723' : '#fef3c7',
-
-           zIndex: 1000,
-          border: 'none',
        
-         
-          fontWeight: '600',
-         
-          transition: 'all 0.3s ease'
-        }}
 
       >
         {isDark ? 

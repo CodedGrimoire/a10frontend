@@ -63,7 +63,7 @@ const TopGenres = () => {
 
        className="book-tooltip" />
 
-      <div className="top-genres">
+      <div className="tgrr">
         <div className="header">
 
 
@@ -79,7 +79,7 @@ const TopGenres = () => {
           </div>  </div>
        
 
-        <div className="grid-container">
+        <div className="tgrr-container">
           {books.length === 0 ? 
           
           (

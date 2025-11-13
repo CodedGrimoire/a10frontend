@@ -1,4 +1,7 @@
 import React from "react";
+import "./main.css"
+
+
 
 const About = () => {
   return (
@@ -53,14 +56,7 @@ const About = () => {
           digital library where every book tells a story worth sharing.
         </p>
 
-        <div className="aboutergrid" style={{
-          display: 'grid',
-          
-          gap: '32px',
-
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          marginTop: '40px'
-        }}>
+        <div className="aboutergrid" >
           <div style={{
             padding: '32px',
             backgroundColor: 'white',
@@ -129,9 +125,11 @@ const About = () => {
 
           <div style={{
             padding: '32px',
+
+             borderRadius: '16px',
             backgroundColor: 'white',
            
-            borderRadius: '16px',
+           
            
           }}
           onMouseEnter={(e) => {
@@ -144,8 +142,10 @@ const About = () => {
 
 
             
-            e.currentTarget.style.transform = 'translateY(0)';
+          
             e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+
+               e.currentTarget.style.transform = 'translateY(0)';
 
           }}>
             <div style={{  overflow: 'hidden',
