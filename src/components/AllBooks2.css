@@ -21,15 +21,19 @@
 }
 
 .nobookinall {
-  color: red;
+ 
   justify-self: center;
 
-  text-align: center;
+  
   margin-top: 200px;
+
+  text-align: center;
   
   align-self: center;
 
   margin-bottom: 200px;
+
+   color: rgb(243, 8, 8);
   
 }
 
@@ -50,8 +54,10 @@
 
 
 .table-wrapper {
-  width: 100%;
+ 
   overflow-x: auto;
+
+   width: 100%;
 }
 
 
@@ -115,13 +121,16 @@
 
 
 .table-cover {
+
+     border-radius: 4px;
   width: 50px;
   
   object-fit: cover;
 
   height: 70px;
-  border-radius: 4px;
+ 
 }
+
 
 
 .details-btn {
@@ -132,8 +141,11 @@
 
   color: white;
   font-weight: 500;
-  border: none;
+  
   border-radius: 6px;
+
+
+  border: none;
  
 }
 
@@ -144,6 +156,7 @@
     padding: 8px 10px;
     font-size: 0.85rem;
   }
+
 
   .table-cover {
     width: 280px;
