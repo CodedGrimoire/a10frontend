@@ -336,7 +336,7 @@ button {
 .toogle{
    position: relative;
   border-radius: 20px;
- 
+ top: -10px;
   right: 20px;
  
   left: 20px;

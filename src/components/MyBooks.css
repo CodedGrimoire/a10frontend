@@ -324,52 +324,202 @@ padding: 7px 13px;
  
 }
 
-
-
 @media (max-width: 576px) {
   .mines {
-    padding: 24px 12px;
+    padding: 16px 12px;
   }
 
   .my-books-title {
     font-size: 24px;
+    margin-bottom: 20px;
   }
 
+  /* Remove table, show as cards */
   .table-wrapper {
-    overflow-x: auto;
+    overflow: visible;
   }
 
   .books-table {
-    min-width: 600px;
+    display: block;
+    width: 100%;
+  }
+
+  .books-table thead {
+    display: none;
+  }
+
+  .books-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .books-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .books-table tbody td {
+    display: block;
+    padding: 0;
+    border: none;
+    text-align: left;
+  }
+
+  /* Cover image at top */
+  .books-table tbody td:nth-child(1) {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .tmb {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  /* Title/Author section */
+  .books-table tbody td:nth-child(2) {
+    margin-bottom: 12px;
+  }
+
+  .book-title-cell {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .book-author-cell {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* Genre and Rating with labels */
+  .books-table tbody td:nth-child(3),
+  .books-table tbody td:nth-child(4) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .books-table tbody td:nth-child(3)::before {
+    content: "Genre:";
+    font-weight: 600;
+  }
+
+  .books-table tbody td:nth-child(4)::before {
+    content: "Rating:";
+    font-weight: 600;
+  }
+
+  /* Actions */
+  .books-table tbody td:nth-child(5) {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .btn-update,
+  .btn-delete {
+    flex: 1;
+    font-size: 14px;
+    padding: 10px;
+    white-space: nowrap;
+  }
+
+  /* Empty/Loading states */
+  .empty-state,
+  .loading-state {
+    padding: 40px 20px;
+    font-size: 14px;
+  }
+
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Modal improvements */
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
   }
 
   .modal-content {
     max-width: 100%;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    margin: 0;
   }
 
   .mhdr {
-    padding: 20px;
-  }
-
-  .modal-body {
-    padding: 20px;
+    padding: 16px;
+    position: sticky;
+    top: 0;
+    background: inherit;
+    z-index: 10;
   }
 
   .modal-title {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+  }
+
+  .modal-body {
+    padding: 0 16px 16px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .modal-actions {
+    display: flex;
     flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
   }
 
   .btn-cancel,
   .btn-submit {
     width: 100%;
+    padding: 12px;
+    font-size: 16px;
   }
 }
-
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
