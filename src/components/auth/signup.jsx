@@ -111,32 +111,6 @@ const Register = () => {
 
   const formIsValid = formData.name.trim() !== "" && formData.email.trim() !== "" && passwordIsValid;
 
-  const fillDemo = (type) => {
-    if (type === "admin") {
-      if (!demoAdminEmail || !demoAdminPassword) {
-        toast.error("Demo Admin is not configured");
-        return;
-      }
-      setFormData({
-        name: "Demo Admin",
-        email: demoAdminEmail,
-        password: demoAdminPassword,
-      });
-      toast.success("Demo Admin credentials filled");
-      return;
-    }
-    if (!demoUserEmail || !demoUserPassword) {
-      toast.error("Demo User is not configured");
-      return;
-    }
-    setFormData({
-      name: "Demo User",
-      email: demoUserEmail,
-      password: demoUserPassword,
-    });
-    toast.success("Demo User credentials filled");
-  };
-
   return (
     <Container className="section-shell">
       <Toaster position="top-right" />
@@ -200,15 +174,6 @@ const Register = () => {
                 {formData.password.length >= 6 ? "✓" : "•"} At least 6 characters
               </div>
             </div>
-          </div>
-
-          <div className="auth-actions">
-            <Button type="button" variant="ghost" size="sm" onClick={() => fillDemo("user")}>
-              Demo User
-            </Button>
-            <Button type="button" variant="ghost" size="sm" onClick={() => fillDemo("admin")}>
-              Demo Admin
-            </Button>
           </div>
 
           <Button

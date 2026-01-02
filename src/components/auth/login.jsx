@@ -79,24 +79,6 @@ const Login = () => {
     }
   };
 
-  const fillDemo = (type) => {
-    if (type === "admin") {
-      if (!demoAdminEmail || !demoAdminPassword) {
-        toast.error("Demo Admin is not configured");
-        return;
-      }
-      setFormData({ email: demoAdminEmail, password: demoAdminPassword });
-      toast.success("Demo Admin credentials filled");
-      return;
-    }
-    if (!demoUserEmail || !demoUserPassword) {
-      toast.error("Demo User is not configured");
-      return;
-    }
-    setFormData({ email: demoUserEmail, password: demoUserPassword });
-    toast.success("Demo User credentials filled");
-  };
-
   return (
     <Container className="section-shell">
       <Toaster position="top-right" />
@@ -138,15 +120,6 @@ const Login = () => {
                 Forgot Password?
               </Link>
             </div>
-          </div>
-
-          <div className="auth-actions">
-            <Button type="button" variant="ghost" size="sm" onClick={() => fillDemo("user")}>
-              Demo User
-            </Button>
-            <Button type="button" variant="ghost" size="sm" onClick={() => fillDemo("admin")}>
-              Demo Admin
-            </Button>
           </div>
 
           <Button type="submit" variant="primary" loading={loadingState} disabled={loadingState}>
