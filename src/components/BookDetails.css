@@ -1,577 +1,128 @@
-
-body{
-  height: 100%;
-}
-.bdeetC {
-  
-  margin: 0 auto;
-
-
-   min-height: 100vh;
-
-
-  padding: 48px 16px;
-  background-color: #fcf6dd;
- 
-}
-
-
-
-.loading-container {
-  display: flex;
-
-
-   height: 400px;
-
-
-  justify-content: center;
-
-  background-color: #fef3c7;
-  align-items: center;
- 
-  
-}
-
-
-.comment-edit-actions{
-
-  gap :10px;
-}
-
-.loading-spinner {
-  width: 50px;
-
-
-   animation: spin 1s linear infinite;
-
-
-  height: 50px;
-  border: 4px solid #fde68a;
-
-  border-radius: 50%;
-
-
-  border-top-color: #d97706;
-  
- 
-}
-
-
-.not-found-container {
-  max-width: 800px;
-
-   text-align: center;
-  margin: 0 auto;
-  
-  min-height: 60vh;
-
-
-  padding: 64px 16px;
- 
-  background-color: #fef3c7;
-}
-
-
-
-.not-found-title {
-  font-size: 28px;
- 
- 
-  color: #dc2626;
-}
-
-
-
-.back-button-wrapper {
-  margin-bottom: 24px;
-}
-
-
-
-
-
-.btn-back {
-  padding: 8px 16px;
-
-
-  border-radius: 6px;
-   color: #92400e;
-
-  border:  solid 2px #fde68a;
-  
-  display: inline-block;
-
-
-  background-color: transparent;
-
-  font-weight: 500;
-
-
- 
-  
-  font-size: 14px;
-  
-  text-decoration: none;
- 
-}
-
-
-
-.not-found-container {
-  max-width: 800px;
-
-   text-align: center;
-  margin: 0 auto;
-  
-  min-height: 60vh;
-
-
-  padding: 64px 16px;
- 
-  background-color: #fef3c7;
-}
-
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-
-.btn-primary {
-   display: inline-block;
-
-  border: none;
- 
-  font-size: 16px;
-  
-
-
-    padding: 10px 24px;
-
-  text-decoration: none;
-
-
-   background-color: #d97706;
-  color: white;
-
-  font-weight: 600;
-  
-  border-radius: 6px;
- 
- 
-}
-
-
-.detcard {
+.book-detail-layout {
   display: grid;
-
-  padding: 32px;
-  grid-template-columns: 1fr;
-
-   border-radius: 12px;
- 
-  background-color: #fffbeb;
-
-   gap: 10px;
-  border: 2px solid #f3dd86;
- 
-  
- 
+  gap: var(--space-6);
 }
 
-
-
-@media (min-width: 576px) {
-  .detcard {
-    grid-template-columns: 1fr 1fr;
-  }
-
-
+.book-detail-card {
+  padding: var(--space-6);
 }
 
-
-
-.book-image-section {
-  display: flex;
-
-  justify-content: center;
+.book-detail-grid {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
 }
 
-.bcimage {
+.gallery-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.gallery-grid img {
   width: 100%;
-  
-
+  height: 220px;
   object-fit: cover;
-  border:solid 2px  #fde68a;
-
-
-  max-width: 400px;
-  height: 500px;
-  
-  border-radius: 9px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
-.book-title {
-  font-size: 32px;
-
-  color: #92400e;
-
-
-  font-weight: bold;
-  
-  margin-bottom: 16px;
+.book-title-text {
+  margin: 0;
+  font-size: var(--text-2xl);
 }
 
-
-
-.infoz {
+.detail-line {
   display: flex;
- 
- 
-
-
-   flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
 }
 
-
-
-.book-detail.added-by {
-  margin-bottom: 20px;
+.comments-card {
+  padding: var(--space-6);
 }
-
-.detail-label {
-  font-weight: 600;
-  color: #92400e;
-}
-
-
-
-.book-summary {
-  color: #78350f;
-
-   margin-top: 8px;
-  line-height: 1.7;
- 
-  font-size: 16px;
-}
-
-
-
-.interactions-section {
-  margin-top: 32px;
-
-
-  border-top:  #fde68a 2px solid;
-
-
-  padding-top: 24px;
-  
-}
-
-.book-detail {
-  color: #78350f;
-
-  font-size: 16px;
-
-
-  margin-bottom: 12px;
-  
-}
-
-
-
-.interactions-title {
-  font-size: 20px;
-
-   margin-bottom: 12px;
-
-   color: #92400e;
-  font-weight: 600;
-  
- 
-}
-
-
-
-
-
-
-.comments-section {
-  margin-top: 2rem;
-
-   padding: 1.5rem;
- 
-  border:  #f3d8a7 2px solid;
-
-   background: #fff8e6;
-  border-radius: 12px;
- 
-}
-
-
-.no-comments {
-  color: #b38d5b;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
 
 .comments-list {
   list-style: none;
-
-   flex-direction: column;
   padding: 0;
-
-   display: flex;
-
-   
-  margin: 0 0 1.5rem 0;
- 
- 
-  gap: 1rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .comment-item {
-  background: #fffcf4;
-
-    padding: 0.9rem 1rem;
-
-
-  border: 1px #f2ddc1 solid ;
-
-  border-radius: 10px;
-
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  background: var(--color-surface-muted);
 }
 
 .comment-header {
-
-  gap: 1rem;
   display: flex;
-
-  margin-bottom: 0.4rem;
-
-
   justify-content: space-between;
-  
-  
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
 }
 
-
+.comment-author {
+  font-weight: 700;
+}
 
 .comment-date {
-  font-size: 0.8rem;
-  color: #a98057;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
 }
-
-
 
 .comment-body {
-  font-size: 0.9rem;
-
-   line-height: 1.4;
-
-   margin-bottom: 0.5rem;
-
-  color: #3a2a1c;
- 
- 
+  margin: 0 0 var(--space-3) 0;
+  color: var(--color-text);
+  line-height: 1.6;
 }
-
-
 
 .comment-actions {
   display: flex;
-  gap: 0.8rem;
+  gap: var(--space-2);
 }
-
-.btn-comment-edit,
-.btn-comment-delete,
-.btn-comment-save,
-.btn-comment-cancel {
-  border: none;
- 
-  padding: 0.35rem 0.6rem;
-
-
-   font-size: 0.7rem;
-  border-radius: 6px;
-  
-}
-
-.btn-comment-edit {
-  background: #ffe0b5;
-
-  color: #4a2b12;
-}
-
-
-.btn-comment-cancel {
-  background: #eaeaea;
-
-
-  color: #333;
-}
-
-
-.comments-title {
-  font-size: 1.2rem;
-
-   margin-bottom: 1rem;
- 
-  color: #4a2b12;
-
-   font-weight: 600;
- 
-}
-
-
-.editrow {
-  display: flex;
-  
-  gap: 0.8rem;
-
-
-  flex-direction: column;
-}
-
-
 
 .comment-form {
   display: flex;
-
-   gap: 0.6rem;
- 
-  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--space-3);
 }
-
-
-
-.btn-comment-delete {
-  background: #fcd3d3;
-
-  color: #742626;
-}
-
-
-
-.btn-comment-save {
-  background: #d7f7d7;
-  color: #214221;
-}
-
-
 
 .comment-textarea {
-  flex: 1;
-
-   color: black;
-
-     border: 2px  #e3c18f solid;
-
-      border-radius: 9px;
-  min-height: 70px;
-
-  
-  padding: 0.5rem 0.6rem;
+  min-height: 96px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
   resize: vertical;
-  
-
- 
-  background: white;
- 
 }
 
-
-.btn-comment-submit {
-
-
-  background:  #742626;
-  
-  
-  padding: 0.55rem 1rem;
-  border-radius: 8px;
-  
-  font-weight: 500;
- 
-  white-space: nowrap;
+.editrow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-
-
-.btn-comment-submit:disabled {
-  opacity: 0.7;
-
-
-  cursor: not-allowed;
+.not-found {
+  text-align: center;
+  padding: var(--space-8);
 }
 
-.detcard{
-  gap :10px;
+.spec-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
-
-
-
-
-
-.comment-author {
-  font-weight: 600;
-
-
-  font-size: 0.9rem;
-
-  color: #5a3411;
-  
-}
-
-@media (max-width: 576px) {
-  .comment-form {
-    flex-direction: column;
-    
-  }
-.comment-textarea{
-  width: 100%;
-}
-
-
-
-  .infoz{
-    display: contents;
-  }
-
-
-
-.book-summary{
-  display: contents;
-}
-
-
-
-  .comment-header {
-    flex-direction: column;
-
-
-    align-items: flex-start;
-  }
-
-
-  .book-detail{
-    display: contents;
-  }
-}
-
-.btn-comment-submit {
-
-
-border: none;
-
-  justify-self: center;
-
-  color: white;
-  align-self: center;
-
-
+.spec-item {
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
 }

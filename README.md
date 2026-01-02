@@ -1,100 +1,59 @@
 # The Book Haven
-A full-stack MERN + Firebase Authentication digital library where users can explore, add, manage, and review books.
-Live Site: <YOUR LIVE URL HERE>
+A MERN + Firebase digital library where readers can explore, add, manage, and review books.
 
-## Features
-- Firebase Authentication (Email/Password + Google Login)
-- CRUD operations for books
-- User-specific “My Books” page
-- Axios for all data fetching
-- React Hot Toast for notifications (success/error)
-- React Tooltip for hover-based hints
-- Image upload using imgbb
-- Dynamic homepage: Latest Books, Top Genres, Book of the Week
-- Sorting books based on rating
-- Fully responsive UI with custom loader and a 404 page
+Live Site: https://a10frontend-seven.vercel.app/
 
-## Packages Used (Frontend)
-- axios  
-- react-hot-toast  
-- react-tooltip  
-- react-router-dom  
-- firebase  
-- dotenv (Vite env)  
-
-## Packages Used (Backend)
-- express  
-- mongoose  
-- cors  
-- dotenv  
-- nodemon (dev)
+## User-facing Features
+- **Browse & discover**: Latest arrivals, top-rated lists, genres spotlight, book-of-the-week, author highlights, quick browse table, and related titles on detail pages.
+- **Search, filter, sort**: Debounced search with genre/rating filters and sorting; pagination for large lists.
+- **Details & reviews**: Public detail pages with gallery, key info, comments/reviews, and related suggestions.
+- **Dashboard**: Protected dashboard with overview stats, genre chart, recent activity table, add/update/delete books, and “My Books” management.
+- **Profile**: Editable name/photo with validation and success/error states.
+- **Auth**: Email/password + Google login; demo user/admin autofill (env-driven); forgot password flow.
+- **Contact & Help**: Contact form with validation/success feedback, Help/FAQ, and Privacy/Terms pages.
+- **Accessibility & theming**: Light/dark theme, keyboard-friendly nav/dropdowns, strong focus states, and responsive layout across devices.
 
 ## Tech Stack
-
 ### Frontend
-- React.js
-- React Router
+- React 19, Vite
+- React Router 7
+- Firebase Auth
 - Axios
 - React Hot Toast
-- React Tooltip
-- Firebase Authentication
-- Custom CSS
+- Custom CSS design system (light/dark themes)
 
 ### Backend
-- Node.js
-- Express.js
+- Node.js + Express
 - MongoDB Atlas
-- CORS
-- dotenv
+- CORS, dotenv
 
+## Key Packages (frontend)
+- `axios`
+- `react-router-dom`
+- `firebase`
+- `react-hot-toast`
+- `lucide-react` (icons)
+- `animate.css` (hero animation)
 
-## Key Functionalities
+## API Endpoints (used)
+- `GET /all-books` – all books (listing, dashboard)
+- `GET /books/latest` – latest books (home, related)
+- `GET /books/top-rated` – top-rated (home)
+- `GET /book-details/:id` – book details + comments
+- `GET /myBooks?email=` – user’s books
+- `POST /add-book` – create book
+- `PUT /update-book/:id` – update book
+- `DELETE /delete-book/:id` – delete book
 
-### Authentication
-- Register with name, email, photoURL, password
-- Login with email/password or Google
-- Proper redirects after login
-- Error/success messages handled by React Hot Toast
+## User Flows
+- Register/login (email/password or Google), optional demo creds.
+- Add/edit/delete your books from dashboard.
+- View all books with search/filters/sort/pagination.
+- Open book details, read summary/meta, browse gallery, post/edit/delete comments.
+- Manage profile (name/photo).
+- Submit contact form; read help/faq and privacy/terms.
 
-### CRUD Operations
-- Add Book (private route)
-- View All Books
-- Update Book (private route)
-- Delete Book (private route)
-- View books added by the logged-in user
-
-### UI and UX
-- Navbar and Footer on all pages
-- Animated homepage banner
-- Latest 6 books loaded dynamically
-- Additional static sections (Top Genres, Book of the Week, About)
-- Loading spinners while fetching
-- Custom 404 page
-- React Tooltip added on icons and user info
-
-
-## API Endpoints
-
-### Books
-GET /books                -> All books  
-GET /books/latest         -> Latest 6 books  
-GET /books/top-rated      -> Top rated books  
-GET /books/:id            -> Single book  
-POST /books               -> Add book  
-PUT /books/:id            -> Update book  
-DELETE /books/:id         -> Delete book  
-GET /myBooks              -> Books added by logged-in user  
-
-
-## Deployment
-- Client: Netlify, Surge, or Firebase Hosting
-- Server: Vercel or Render
-- Add deployed domain to Firebase Authentication > Authorized Domains
-
-## Notes
-- All notifications use React Hot Toast
-- All API calls use Axios
-- React Tooltip used for hover hints and user info
-- Firebase Authentication preserves login state after reload
-- Fully responsive layout across mobile, tablet, and desktop
-live link - https://a10frontend-seven.vercel.app/
+## Deployment Notes
+- Client: any static host (Netlify/Vercel/etc.)
+- Server: Vercel/Render/Heroku
+- Add deployed domain to Firebase Authentication authorized domains.  

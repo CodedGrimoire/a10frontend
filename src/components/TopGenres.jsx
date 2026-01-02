@@ -1,26 +1,18 @@
 
 import React, { useState, useEffect } from "react";
-
-import "./main.css";
-
-
 import { useNavigate, useLocation } from "react-router-dom";
-
-
-
-import { Tooltip } from "react-tooltip";
-
-import "react-tooltip/dist/react-tooltip.css";
-
 import axios from "axios";
 
+import "./main.css";
+import Button from "./ui/Button";
+import Card from "./ui/Card";
+import SectionHeader from "./ui/SectionHeader";
+import Badge from "./ui/Badge";
+import Skeleton from "./ui/Skeleton";
 
 const TopGenres = () => {
   const [books, setBooks] = useState([]);
-
-  const [, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,18 +20,13 @@ const TopGenres = () => {
   useEffect(() => {
     const fetchTopRatedBooks = async () => {
       try {
-        const API_URL = import.meta.env.VITE_API_URL ;
+        const API_URL = import.meta.env.VITE_API_URL;
         const ress = await axios.get(`${API_URL}/books/top-rated`);
 
         setBooks(ress.data);
-      }
-       catch (err)
-       
-       {
-        setError(err.message);
-      } 
-      
-      finally {
+      } catch (err) {
+        setBooks([]);
+      } finally {
         setLoading(false);
       }
     };
@@ -47,156 +34,65 @@ const TopGenres = () => {
     fetchTopRatedBooks();
   }, []);
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg text-[#813b10]"></span>
-      </div>
-    );
-
-  
   return (
-    <>
-      
-      <Tooltip id="book-tooltip"
-       place="top" 
-
-       className="book-tooltip" />
-
-      <div className="tgrr">
-        <div className="header">
-
-
-          <div className="textual">
-            <h2 className="title">
-              Top Rated Books</h2>
-
-
-
-            <p className="subtitle">
-              Discover the highest-rated books in The Book Haven. </p>
-            
-          </div>  </div>
-       
-
-        <div className="tgrr-container">
-          {books.length === 0 ? 
-          
-          (
-            <p className="no-books-message">
-              
-              
-              No books found.
-              
-              
-              </p>
-          ) : 
-          
-          (
-            books.map((book, idx) => (
-              <div
-                key={book._id || idx}
-
-
-                className="bookies"
-                
-                data-tooltip-id="book-tooltip"
-                data-tooltip-content={
-                  book.description ||
-                  book.summary ||
-                  "No description available."
-                }
-              >
-                <div className="bookies-image">
-
-                  <img
-                    src={
-                      book.coverImage ||
-                      book.img ||
-                      book.image ||
-                      "https://via.placeholder.com/300x400?text=Book+Cover"
-                    }
-                    alt=""  className="book-image"
-
-
-                   
-                  
-                  />
-
-
+    <div className="stack">
+      <SectionHeader
+        title="Top rated books"
+        description="Discover the highest-rated picks from The Book Haven community."
+      />
+      <div className="card-grid">
+        {loading
+          ? Array.from({ length: 3 }).map((_, idx) => (
+              <Card key={idx} className="book-card modern">
+                <Skeleton style={{ height: 180 }} />
+                <div className="stack" style={{ marginTop: "var(--space-3)" }}>
+                  <Skeleton />
+                  <Skeleton style={{ width: "60%" }} />
                 </div>
-
-                <div className="book-info">
-                  
-                  <h3 className="book-title">{book.title || book.name}
-
-
-
-                  </h3>
-
-
-                  <p className="author">
-                    
-                    {book.author}
-                    
-                    </p>
-
-
-
-                  {book.genre && <span className="genre">{book.genre}</span>}
-
-
+              </Card>
+            ))
+          : books.map((book) => (
+              <Card key={book._id} className="book-card modern">
+                <div className="book-cover">
+                  <img
+                    src={book.coverImage || book.img || book.image}
+                    alt={book.title || book.name}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="stack" style={{ gap: "var(--space-2)" }}>
+                  <div className="book-title-row">
+                    <h3>{book.title || book.name}</h3>
+                    {book.genre && <Badge tone="warn">{book.genre}</Badge>}
+                  </div>
+                  <div className="muted-text">{book.author}</div>
                   {book.rating && (
-                    <div className="rating">
-                      <span className="star">
-                        
-                        
-                        ★</span>
-                      <span className="rating-value">
-                        {book.rating.toFixed
-                          ? book.rating.toFixed(1)
-
-
-                          : book.rating} 
-                          
-                          </span>
-                     
-
-
-
+                    <div className="rating-row">
+                      <span>⭐ {book.rating.toFixed ? book.rating.toFixed(1) : book.rating}</span>
                       {book.reviewCount && (
-                        <span className="review-count">
-                          ({book.reviewCount} reviews)
-                        </span>
-                      )} </div>
-                   
+                        <span className="muted-text">({book.reviewCount} reviews)</span>
+                      )}
+                    </div>
                   )}
-
-                  <button
-                    className="view-details-button"
-                    style={{ backgroundColor: "#813b10", 
-                      
-                      color: "white" }}
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() =>
-                      navigate(`/book-details/${book._id}`, 
-                        {
-                        state: { from: location }, 
+                      navigate(`/book-details/${book._id}`, {
+                        state: { from: location },
                       })
                     }
                   >
-                    View Details
-
-
-                  </button> </div>
-               
-              </div>
-            ))
-          )}
-
-
-        </div></div>
-      
-    </>
+                    View details
+                  </Button>
+                </div>
+              </Card>
+            ))}
+      </div>
+      {!loading && books.length === 0 && (
+        <div className="muted-text">No books found in this list.</div>
+      )}
+    </div>
   );
 };
 

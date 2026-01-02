@@ -1,10 +1,7 @@
-
 import React, { useState } from "react";
 
-import { Eye, EyeOff } from "lucide-react"; 
+import { Eye, EyeOff } from "lucide-react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-
-
 
 import toast, { Toaster } from "react-hot-toast";
 import {
@@ -13,397 +10,166 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
-
-
+import Container from "../ui/Container";
+import Card from "../ui/Card";
+import SectionHeader from "../ui/SectionHeader";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
+import "./auth.css";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
 
-   const [showPassword, setShowPassword] = useState(false);
-
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
- 
 
-  
   const location = useLocation();
 
-
   const googleProvider = new GoogleAuthProvider();
+  const demoUserEmail = import.meta.env.VITE_DEMO_USER_EMAIL || "";
+  const demoUserPassword = import.meta.env.VITE_DEMO_USER_PASSWORD || "";
+  const demoAdminEmail = import.meta.env.VITE_DEMO_ADMIN_EMAIL || "";
+  const demoAdminPassword = import.meta.env.VITE_DEMO_ADMIN_PASSWORD || "";
 
- 
   const from = location.state?.from?.pathname || "/";
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const validate = () => {
+    if (!formData.email || !formData.password) {
+      toast.error("Email and password are required");
+      return false;
+    }
+    if (!formData.email.includes("@")) {
+      toast.error("Enter a valid email");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) 
-      
-      {
-      toast.error("Please fill all fields");
-      return;
-    }
-    try 
-    
-    {
+    if (!validate()) return;
+    setLoadingState(true);
+    try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-
 
       toast.success("Login successful!");
       setTimeout(() => navigate(from, { replace: true }), 400);
-    // eslint-disable-next-line no-unused-vars
-    } 
-    
-    // eslint-disable-next-line no-unused-vars
-    catch (error)
-     {
-      toast.error("Invalid credentials");
+    } catch (error) {
+      toast.error(error?.code ? error.code.replace("auth/", "") : "Invalid credentials");
+    } finally {
+      setLoadingState(false);
     }
   };
 
-
   const handleGoogleLogin = async () => {
+    setLoadingState(true);
     try {
       await signInWithPopup(auth, googleProvider);
       toast.success("Login successful!");
-      
+
       setTimeout(() => navigate(from, { replace: true }), 400);
-    // eslint-disable-next-line no-unused-vars
-    } 
-    
-    // eslint-disable-next-line no-unused-vars
-    catch (error) 
-    
-    {
-      toast.error("Google login failed");
+    } catch (error) {
+      toast.error(error?.code ? error.code.replace("auth/", "") : "Google login failed");
+    } finally {
+      setLoadingState(false);
     }
   };
 
-  
-  const styles = {
-    container: {
-     
-      backgroundColor: "#fef3c7",
-      display: "flex",
-
-       minHeight: "100vh",
-      alignItems: "center",
-
-
-       padding: "20px",
-      justifyContent: "center",
-     
-    },
-
-
-    card: {
-      backgroundColor: "#fffbeb",
-      border: "2px solid #fde68a",
-     
-      width: "100%",
-
-
-       borderRadius: "12px",
-     
-      maxWidth: "450px",
-
-       padding: "40px",
-      
-    },
-    header: {
-      textAlign: "center",
-      marginBottom: "30px",
-    },
-
-
-
-    title: {
-      
-      fontWeight: "bold",
-
-      marginBottom: "8px",
-      color: "#92400e",
-
-      fontSize: "28px",
-      
-    },
-
-  
-    formGroup: {
-      marginBottom: "20px",
-      position: "relative",
-    },
-    label: {
-      display: "block",
-      fontSize: "14px",
-      fontWeight: "500",
-      color: "#92400e",
-      marginBottom: "6px",
-    },
-    input: {boxSizing: "border-box",
-      width: "100%",
-
-
-       border: "2px solid #fde68a",
-      borderRadius: "6px",
-     
-      backgroundColor: "white",
-
-
-       fontSize: "14px",
-      padding: "12px 40px 12px 12px",
-     
-      color: "#1f2937",
-      
-    },
-
-
-
-      subtitle: {
-      fontSize: "14px",
-      color: "#78350f",
-    },
-
-
-    eyeIcon: {
-      position: "absolute",
-     
-      top: "38px",
-    
-      color: "#92400e",
-
-       right: "10px",
-    },
-    
-    forgotPassword: { marginTop: "8px",
-      textAlign: "right",
-      
-    },
-
-
-    forgotLink: {
-      color: "#d97706",
-      fontSize: "13px",
-      textDecoration: "none",
-      
-    },
-
-
-    button: {
-      width: "100%",
-
-       borderRadius: "7px",
-      padding: "12px",
-      
-      fontWeight: "600",
-      
-      marginTop: "10px",
-
-      border: "none",
-     
-      fontSize: "16px",
-    },
-
-
-    loginButton: {
-      backgroundColor: "#d97706",
-      color: "white",
-    },
-
-
-    googleButton: {
-      backgroundColor: "#fff",
-      color: "#1f2937",
-     
-      display: "flex",
-
-       border: "solid #fde68a 2px ",
-      alignItems: "center",
-
-       gap: "8px",
-      justifyContent: "center",
-     
-    },
-   
-    dividerLine: {
-      flex: 1,
-      height: "1px",
-      backgroundColor: "#fde68a",
-    },
-
-
-    dividerText: {
-      padding: "0 12px",
-    },
-
-
-    footer: {
-      textAlign: "center",
-
-        marginTop: "24px",
-      fontSize: "14px",
-      color: "#78350f",
-    
-    },
-
-
-
-    link: {
-      color: "#d97706",
-      
-      fontWeight: "600",
-      textDecoration: "none",
-     
-    },
-
-
-     divider: {
-      display: "flex",
-
-
-        color: "#92400e",
-
-        fontSize: "14px",
-      alignItems: "center",
-      margin: "24px 0",
-    
-      
-    },
+  const fillDemo = (type) => {
+    if (type === "admin") {
+      if (!demoAdminEmail || !demoAdminPassword) {
+        toast.error("Demo Admin is not configured");
+        return;
+      }
+      setFormData({ email: demoAdminEmail, password: demoAdminPassword });
+      toast.success("Demo Admin credentials filled");
+      return;
+    }
+    if (!demoUserEmail || !demoUserPassword) {
+      toast.error("Demo User is not configured");
+      return;
+    }
+    setFormData({ email: demoUserEmail, password: demoUserPassword });
+    toast.success("Demo User credentials filled");
   };
 
   return (
-    <div style={styles.container}>
+    <Container className="section-shell">
       <Toaster position="top-right" />
-      <div style={styles.card}>
+      <Card className="auth-card">
+        <SectionHeader title="📚 Welcome Back" description="Log in to your Book Haven account" />
 
+        <form onSubmit={handleSubmit} className="auth-form">
+          <Input
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-        <div style={styles.header}>
-          <h1 style={styles.title}>
-            
-            
-            
-            📚 Welcome Back
-            
-            </h1>
-          <p style={styles.subtitle}>
-            
-            Log in to your Book Haven account
-            
-            </p>
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          <div style={styles.formGroup}>
-            <label style={styles.label}>
-              
-              Email
-              
-              </label>
-            <input
-              type="email"
-              name="email"
-
-
-              value={formData.email}
-              onChange={handleChange}
-
-
-              style={styles.input}
-              required
-            />
-          </div>
-
-          <div style={styles.formGroup}>
-            <label style={styles.label}>
-              
-              Password
-              
-              
-              </label>
-
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-
-
-
-              value={formData.password}
-              onChange={handleChange}
-              style={styles.input}
-              required
-            />
-
-
-            <div
-              style={styles.eyeIcon}
-
-
-              onClick={() => setShowPassword((prev) => !prev)}
-
-
-              aria-label={showPassword ? "Hide password" : 
-                "Show password"}
-
-
-              title={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          <div className="field password-field">
+            <label>Password</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="ui-input"
+                required
+              />
+              <button
+                type="button"
+                className="eye-button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
-
-
-            <div style={styles.forgotPassword}>
-             
-              <Link to="/forgot-password" state={{ from }} style={styles.forgotLink}>
+            <div className="forgot-link">
+              <Link to="/forgot-password" state={{ from }}>
                 Forgot Password?
-
               </Link>
             </div>
           </div>
 
-          <button type="submit" style={{ ...styles.button, ...styles.loginButton }}>
+          <div className="auth-actions">
+            <Button type="button" variant="ghost" size="sm" onClick={() => fillDemo("user")}>
+              Demo User
+            </Button>
+            <Button type="button" variant="ghost" size="sm" onClick={() => fillDemo("admin")}>
+              Demo Admin
+            </Button>
+          </div>
+
+          <Button type="submit" variant="primary" loading={loadingState} disabled={loadingState}>
             Login
-          </button>
+          </Button>
         </form>
 
-      
-        <div style={styles.divider}>
-
-          <div style={styles.dividerLine}>
-
-          </div>
-          <span style={styles.dividerText}>
-
-            
-            
-            OR
-            
-            </span>
-          <div style={styles.dividerLine}></div>
+        <div className="divider">
+          <span>OR</span>
         </div>
 
-       
-        <button
-          style={{ ...styles.button, ...styles.googleButton }}
-
-          
-          onClick={handleGoogleLogin}
-        >
+        <Button variant="ghost" onClick={handleGoogleLogin} loading={loadingState}>
           Continue with Google
-        </button>
+        </Button>
 
-        <div style={styles.footer}>
-
-
+        <div className="auth-footer">
           Don&apos;t have an account?{" "}
-         
-         <Link to="/register" state={location.state} style={styles.link}>
-  Register
-</Link>
-
+          <Link to="/register" state={location.state} className="link-strong">
+            Register
+          </Link>
         </div>
-      </div>
-    </div>
+      </Card>
+    </Container>
   );
 };
 

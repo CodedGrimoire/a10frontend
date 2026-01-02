@@ -1,4 +1,5 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://a10server-sigma.vercel.app";
 
 export async function getAllBooks(sort) {
   const url = sort ? `${BASE_URL}/all-books?sort=${sort}` : `${BASE_URL}/all-books`;

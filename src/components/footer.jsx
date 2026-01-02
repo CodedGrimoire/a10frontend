@@ -1,172 +1,65 @@
+import "./Footer.css";
+import Container from "./ui/Container";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const styles = {
-    footer: {
-      backgroundColor: '#fef3c7',
-
-      
-      color: '#1f2937',
-      padding: '24px 0',
-      
-      borderTop: ' solid 2px #fde68a',
-    },
-
-    divider: {
-      color: '#a4acbcff',
-      margin: '0 8px',
-    },
-    container: {
-     
-
-      padding: '0 24px',
-      margin: '0 auto',
-      
-    },
-
-     brandTitle: {
-      fontSize: '20px',
-
-       color: '#92400e',
-      fontWeight: 'bold',
-     
-      margin: 0,
-    },
-
-    flexContainer: {
-      display: 'flex',
-
-        gap: '16px',
-      alignItems: 'center',
-
-       flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    
-     
-    },
-    brandSection: {
-      display: 'flex',
-
-      gap: '9px',
-      alignItems: 'center',
-      
-    },
-   
-    
-    tagline: {
-      fontSize: '14px',
-
-        margin: 0,
-      color: '#4b5563',
-    
-    },
-   
-    link: {
-     
-      textDecoration: 'none',
-
-       fontWeight: '500',
-
-        color: '#4b5563',
-      fontSize: '14px',
-     
-      
-    },
-    dot: {
-      color: '#d1d5db',
-    },
-    copyright: {
-        color: '#636c7cff',
-      fontSize: '12px',
-    
-      margin: 0,
-    },
-
-
-     socialLinks: {
-      display: 'flex',
-
-       gap: '12px',
-      alignItems: 'center',
-     
-    },
-  };
-
-
-
   return (
-    <footer style={styles.footer}>
+    <footer className="footer-shell">
+      <Container className="footer-grid">
+        <div className="footer-column">
+          <div className="footer-logo" aria-hidden="true">
+            📚
+          </div>
+          <div className="footer-title">The Book Haven</div>
+          <p className="footer-subtitle">
+            Your digital escape into worlds of imagination.
+          </p>
+        </div>
 
-
-      <div style={styles.container}>
-        <div 
-        
-        style={styles.flexContainer}>
-         
-          <div 
-          
-          style={styles.brandSection}>
-            <h2 style={styles.brandTitle}>
-              
-              📚 The Book Haven
-              
-              </h2>
-            <span style={styles.divider}>|</span>
-            <p style={styles.tagline}>
-              
-              
-              
-              Your digital escape into worlds of imagination
-              
-              
-              
-              </p> </div>
-         
-
-        
-          <div style={styles.socialLinks}>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.link}
-             
-            >
-              Facebook
+        <div className="footer-column">
+          <h3 className="footer-heading">Navigate</h3>
+          <div className="footer-links">
+            <a href="/" className="footer-nav">
+              Home
             </a>
-            <span style={styles.dot}>•</span>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.link}
-             
-             
-            >
-              X
+            <a href="/all" className="footer-nav">
+              All Books
             </a>
-            <span style={styles.dot}>•</span>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.link}
-             
-            >
-              Instagram
+            <a href="/dashboard/add-book" className="footer-nav">
+              Add Book
+            </a>
+            <a href="/dashboard/my-books" className="footer-nav">
+              My Books
+            </a>
+            <a href="/about" className="footer-nav">
+              About
+            </a>
+            <a href="/blog" className="footer-nav">
+              Blog
             </a>
           </div>
+        </div>
 
-        
-          <p 
-          style={styles.copyright}>
-            
-            
-            © {currentYear} The Book Haven
-            
-            </p>
-        </div> </div>
-     
+        <div className="footer-column">
+          <h3 className="footer-heading">Contact</h3>
+          <div className="footer-contact">
+            <a href="mailto:contact@bookhaven.com">contact@bookhaven.com</a>
+            <a href="tel:+10000000000">+1 (000) 000-0000</a>
+            <span>Global community</span>
+          </div>
+        </div>
+
+        <div className="footer-column">
+          <h3 className="footer-heading">Legal</h3>
+          <div className="footer-links">
+            <a href="/privacy" className="footer-nav">
+              Privacy & Terms
+            </a>
+            <span className="footer-meta">© {currentYear} The Book Haven</span>
+          </div>
+        </div>
+      </Container>
     </footer>
   );
 };

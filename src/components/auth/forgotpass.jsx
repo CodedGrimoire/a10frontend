@@ -1,99 +1,66 @@
+import React, { useState } from "react";
 
-import React, { useState } from 'react';
+import "./auth.css";
+import { sendPasswordResetEmail } from "firebase/auth";
 
-import './auth.css';
-import { sendPasswordResetEmail } from 'firebase/auth';
-
-import toast, { Toaster } from 'react-hot-toast';
-import { auth } from '../../firebaseConfig';
-
-
+import toast, { Toaster } from "react-hot-toast";
+import { auth } from "../../firebaseConfig";
+import Container from "../ui/Container";
+import Card from "../ui/Card";
+import SectionHeader from "../ui/SectionHeader";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-
-  
+  const [email, setEmail] = useState("");
 
   const handleReset = async (e) => {
     e.preventDefault();
-    if (!email) 
-      
-      {
-      toast.error('Please enter your email');
+    if (!email) {
+      toast.error("Please enter your email");
       return;
     }
 
-    try 
-    
-    {
+    try {
       await sendPasswordResetEmail(auth, email);
-      toast.success('Password reset email sent!');
-    // eslint-disable-next-line no-unused-vars
-    } 
-    
-    // eslint-disable-next-line no-unused-vars
-    catch (error) 
-    
-    {
-      toast.error('Failed to send reset email');
+      toast.success("Password reset email sent!");
+    } catch (error) {
+      toast.error("Failed to send reset email");
     }
   };
 
   return (
-    <div className="auth-container">
+    <Container className="section-shell">
       <Toaster position="top-right" />
-      <div className="auth-card">
+      <Card className="auth-card">
+        <SectionHeader
+          title="Reset Password"
+          description="Enter your email to receive reset instructions"
+        />
 
+        <form onSubmit={handleReset} className="auth-form">
+          <Input
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-
-        <div className="auth-header">
-          <h1 className="auth-title">
-            
-             Reset Password
-             
-             </h1>
-          <p className="auth-subtitle">
-            Enter your email to receive reset instructions
-          </p></div>
-        
-
-        <form onSubmit={handleReset}>
-          <div className="form-group">
-
-
-            <label className="label">
-              
-              Email
-              
-              </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input"
-              required
-            />
-          </div>
-
-
-
-          <button type="submit" 
-          
-          className="btn btn-register">
-
-
+          <Button type="submit" variant="primary">
             Send Reset Link
-          </button>  </form>
-       
+          </Button>
+        </form>
 
         <div className="auth-footer">
-          Remembered your password?{' '}
-          <a href="/login" className="link">
+          Remembered your password?{" "}
+          <Link to="/login" className="link-strong">
             Go back to Login
-          </a>
-        </div>   </div>
-    
-    </div>
+          </Link>
+        </div>
+      </Card>
+    </Container>
   );
 };
 

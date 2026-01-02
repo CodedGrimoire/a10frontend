@@ -5,28 +5,25 @@ import toast, { Toaster } from "react-hot-toast";
 
 import axios from "axios";
 
-
 import "./MyBooks.css";
 
 import { useAuth } from "../hooks/useAuth";
+import Container from "./ui/Container";
+import Card from "./ui/Card";
+import Button from "./ui/Button";
+import SectionHeader from "./ui/SectionHeader";
+import Input from "./ui/Input";
+import Skeleton from "./ui/Skeleton";
 
-
-const BASE_URL = import.meta.env.VITE_API_URL ;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const MyBooks = () => {
   const { user, loading } = useAuth();
 
-   const [fetching, setFetching] = useState(false);
+  const [fetching, setFetching] = useState(false);
   const [books, setBooks] = useState([]);
 
-
-   const [edix, setEditingBook] = useState(null);
-
-
- 
- 
-
-
+  const [edix, setEditingBook] = useState(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -38,9 +35,6 @@ const MyBooks = () => {
   });
   const [updating, setUpdating] = useState(false);
 
-
-
-  
   const fetchMyBooks = async (email) => {
     try {
       setFetching(true);
@@ -48,21 +42,9 @@ const MyBooks = () => {
         `${BASE_URL}/myBooks?email=${encodeURIComponent(email)}`
       );
       setBooks(res.data || []);
-    }
-    
-    
-    catch (err) 
-    
-    
-    {
-     // console.error(err);
-
-
+    } catch (err) {
       toast.error("Failed to load your books");
-    } 
-    
-    finally 
-    {
+    } finally {
       setFetching(false);
     }
   };
@@ -73,27 +55,18 @@ const MyBooks = () => {
     }
   }, [loading, user]);
 
-
   const handleDelete = async (id) => {
     const sure = window.confirm("Delete this book?");
     if (!sure) return;
-    try 
-    
-    {
+    try {
       await axios.delete(`${BASE_URL}/delete-book/${id}`);
       toast.success("Book deleted successfully!");
 
-
       setBooks((prev) => prev.filter((b) => b._id !== id));
-    }
-    
-    catch (err) {
-      //console.error(err);
+    } catch (err) {
       toast.error("Failed to delete");
     }
   };
-
-
 
   const closeModal = () => {
     setEditingBook(null);
@@ -107,13 +80,8 @@ const MyBooks = () => {
     });
   };
 
-
-  
-  const openUpdateModal = (book) => 
-    
-    {
+  const openUpdateModal = (book) => {
     setEditingBook(book);
-
 
     setFormData({
       title: book.title || "",
@@ -123,11 +91,8 @@ const MyBooks = () => {
       summary: book.summary || "",
       coverImage: book.coverImage || "",
     });
-
   };
 
- 
-//brrrrr
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -135,13 +100,10 @@ const MyBooks = () => {
     });
   };
 
-  
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.author || !formData.genre) 
-      
-      {
+    if (!formData.title || !formData.author || !formData.genre) {
       toast.error("Title, Author, and Genre are required.");
       return;
     }
@@ -150,391 +112,207 @@ const MyBooks = () => {
       title: formData.title,
       author: formData.author,
       genre: formData.genre,
-      rating: formData.rating ? parseFloat(formData.rating) : 0, 
-
+      rating: formData.rating ? parseFloat(formData.rating) : 0,
 
       summary: formData.summary || "",
 
-
       coverImage: formData.coverImage || "",
       userEmail: edix.userEmail,
-
 
       userName: edix.userName,
     };
 
     try {
       setUpdating(true);
-     // console.log("Sending update payload:", payload);
 
-
-      await axios.put(`${BASE_URL}/update-book/${edix._id}`, payload, 
-        
-        
-        {
+      await axios.put(`${BASE_URL}/update-book/${edix._id}`, payload, {
         headers: { "Content-Type": "application/json" },
       });
 
-
-
       toast.success("Book updated successfully!");
-
-
 
       setBooks((prev) =>
         prev.map((b) => (b._id === edix._id ? { ...b, ...payload } : b))
       );
       closeModal();
-    }
-    
-    catch (err) 
-    
-    {
-      //console.error("Update error:", err.response?.data || err);
+    } catch (err) {
       toast.error(err.response?.data?.message || "Failed to update book");
-    } 
-    
-    finally 
-    
-    {
+    } finally {
       setUpdating(false);
     }
   };
 
   if (loading) {
     return (
-      <div className="mines">
+      <Container className="section-shell">
         <Toaster />
-
-        <div className="loading-state">
-
-
-          <div className="loading-spinner">
-
-
-
-          </div>
-          
-        </div>
-      </div>
+        <Card>
+          <Skeleton style={{ height: 80 }} />
+        </Card>
+      </Container>
     );
   }
 
   if (!user?.email) {
     return (
-      <div className="mines">
+      <Container className="section-shell">
         <Toaster />
-
-
-        <div className="empty-state">
-          <p>
-            
-            You must be logged in to see your books.
-            
-            
-            </p>
-        </div> </div>
-     
+        <Card className="empty-card">
+          <p>You must be logged in to see your books.</p>
+        </Card>
+      </Container>
     );
   }
 
-
-
   return (
-    <div className="mines">
+    <Container className="section-shell">
       <Toaster />
-      <h2 className="my-books-title">
-        
-        My Books
-        
-        
-        </h2>
+      <Card>
+        <SectionHeader
+          title="My Books"
+          description="Manage the titles you have added to The Book Haven."
+        />
 
-      {fetching ? (
-        <div className="loading-state">
-
-
-          <div className="loading-spinner"></div>
-          <p>
-            
-            
-            Loading your books…
-            
-            
-            </p>
-        </div>
-      ) :
-       books.length === 0 ? (
-        <div className="empty-state">
-          <p>
-            
-            You haven't added any books yet.
-            
-            </p>
-        </div>
-      ) : 
-      
-      
-      (
-        <div className="table-wrapper">
-
-          <table className="books-table">
-            <thead>
-              <tr>
-                <th>Cover</th>
-
-
-                <th>Title / Author</th>
-
-
-                <th>Genre</th>
-                <th>Rating</th>
-
-
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {books.map((book) => (
-                <tr key={book._id}>
-
-
-                  <td>
-                    <img
-                      src={book.coverImage}
-                      alt=""
-                      className="tmb"
-                    />
-                  </td>
-
-
-                  <td>
-                    <div className="book-title-cell">
-                      
-                      
-                      {book.title}
-                      
-                      
-                      </div>
-                    <div className="book-author-cell">
-
-
-                      {book.author || "Unknown"}
-                    </div>
-                  </td>
-                  <td>{book.genre || "-"}</td>
-
-
-
-                  <td>{book.rating || "-"}</td>
-                  <td>
-                    <div className="action-buttons">
-
-
-
-                      <button
-                        onClick={() => openUpdateModal(book)}
-
-                        className="btn-update"
-                      >
-                        Update
-                      </button>
-
-
-                      <button
-                        onClick={() => handleDelete(book._id)}
-                        className="btn-delete"
-                      >
-                        Delete
-                      </button> </div>
-                   
-                  </td>
+        {fetching ? (
+          <div className="loading-state">
+            <Skeleton style={{ height: 18 }} />
+            <Skeleton style={{ height: 18, width: "60%" }} />
+          </div>
+        ) : books.length === 0 ? (
+          <div className="empty-card">
+            <p>You haven&apos;t added any books yet.</p>
+          </div>
+        ) : (
+          <div className="table-wrapper">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Cover</th>
+                  <th>Title / Author</th>
+                  <th>Genre</th>
+                  <th>Rating</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {books.map((book) => (
+                  <tr key={book._id}>
+                    <td>
+                      <img src={book.coverImage} alt="" className="tmb" />
+                    </td>
 
-    
+                    <td>
+                      <div className="book-title-cell">{book.title}</div>
+                      <div className="book-author-cell">
+                        {book.author || "Unknown"}
+                      </div>
+                    </td>
+                    <td>{book.genre || "-"}</td>
+
+                    <td>{book.rating || "-"}</td>
+                    <td>
+                      <div className="action-buttons">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => openUpdateModal(book)}
+                        >
+                          Update
+                        </Button>
+
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleDelete(book._id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Card>
+
       {edix && (
-        <div className="modal-overlay"
-        
-        onClick={closeModal}>
-          <div className="modal-content"
-          
-          onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="mhdr">
-
-
-              <h3 className="modal-title">
-                
-                Update Book
-                
-                
-                </h3>
+              <h3 className="modal-title">Update Book</h3>
               <button className="modal-close" onClick={closeModal}>
                 ✕
-              </button>  </div>
-          
+              </button>
+            </div>
 
             <div className="modal-body">
-              <div className="form-group">
-                <label className="form-label">
-                  
-                  
-                  Title *</label>
-
-
-                <input
-
-
-                  type="text"
+              <div className="form-grid">
+                <Input
+                  label="Title *"
                   name="title"
-
-
                   value={formData.title}
                   onChange={handleChange}
-                  className="form-input"
                   required
                 />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">
-                  
-                  
-                  Author *
-                  
-                  
-                  </label>
-
-
-                <input
-                  type="text"
+                <Input
+                  label="Author *"
                   name="author"
                   value={formData.author}
-
-
                   onChange={handleChange}
-                  className="form-input"
                   required
                 />
-              </div>
-
-              <div className="form-group">
-                <label
-                
-                className="form-label">
-                  
-                  
-                  
-                  Genre *
-                  
-                  </label>
-
-
-                <input
-                  type="text"
+                <Input
+                  label="Genre *"
                   name="genre"
                   value={formData.genre}
-
-
-
                   onChange={handleChange}
-                  className="form-input"
                   required
                 />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">
-                  
-                  
-                  Rating (1–5)
-                  
-                  
-                  </label>
-                <input
+                <Input
+                  label="Rating (1–5)"
                   type="number"
                   name="rating"
                   value={formData.rating}
                   onChange={handleChange}
-
-
-                  className="form-input"
                   min="1"
                   max="5"
-                  step="0.1" 
+                  step="0.1"
                 />
-              </div>
+                <div className="field full-span">
+                  <label>Summary</label>
+                  <textarea
+                    name="summary"
+                    value={formData.summary}
+                    onChange={handleChange}
+                    className="ui-input"
+                    rows="3"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label className="form-label">Summary</label>
-                <textarea
-                  name="summary"
-                  value={formData.summary}
-
-
-
-                  onChange={handleChange}
-                  className="form-textarea"
-                  rows="3"
-                />
-              </div>
-
-              <div className="form-group">
-
-
-                
-                <label className="form-label">
-                  
-                  Cover Image URL
-                  
-                  
-                  </label>
-                <input
-                  type="text"
+                <Input
+                  label="Cover Image URL"
                   name="coverImage"
                   value={formData.coverImage}
-
-
-
                   onChange={handleChange}
-                  className="form-input"
                 />
               </div>
 
               <div className="modal-actions">
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="btn-cancel"
-                >
+                <Button variant="ghost" onClick={closeModal}>
                   Cancel
-                </button>
+                </Button>
 
-
-
-                <button
-                  type="button"
-                  onClick={handleUpdateSubmit}
-                  disabled={updating}
-                  className="btn-submit"
-                >
-                  {updating ?
-                  
-                  "Updating..." : "Update Book"}
-                </button>
-
-
-
-              </div> </div>
-           
+                <Button type="button" onClick={handleUpdateSubmit} loading={updating}>
+                  Update Book
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 
